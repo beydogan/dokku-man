@@ -1,0 +1,11 @@
+= simple_form_for(@host) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :addr
+    = f.input :private_key
+    = f.input :public_key
+
+  .form-actions
+    = f.button :submit

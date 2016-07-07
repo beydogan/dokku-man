@@ -1,0 +1,18 @@
+.page-header
+  = link_to hosts_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-list-alt
+    Back
+  = link_to edit_host_path(@host), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-pencil
+    Edit
+  %h1 Show host
+
+%dl.dl-horizontal
+  %dt Name:
+  %dd= @host.name
+  %dt Addr:
+  %dd= @host.addr
+  %dt Private key:
+  %dd= @host.private_key
+  %dt Public key:
+  %dd= @host.public_key

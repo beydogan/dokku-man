@@ -1,0 +1,28 @@
+.page-header
+  = link_to new_host_path, class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-plus
+    New Host
+  %h1 Listing hosts
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Addr
+        %th Private key
+        %th Public key
+        %th
+        %th
+        %th
+
+    %tbody
+      - @hosts.each do |host|
+        %tr
+          %td= host.name
+          %td= host.addr
+          %td= host.private_key
+          %td= host.public_key
+          %td= link_to 'Show', host
+          %td= link_to 'Edit', edit_host_path(host)
+          %td= link_to 'Destroy', host, data: { confirm: 'Are you sure?' }, method: :delete
