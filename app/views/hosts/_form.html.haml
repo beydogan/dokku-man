@@ -4,6 +4,7 @@
   .form-inputs
     = f.input :name
     = f.input :addr
+    = f.input :username
     = f.input :private_key#, input_html: {value: @host.private_key.gsub(/\n/, '\n') }
     = f.input :public_key
     = f.input :generate_keys, as: :boolean, hint: "It generates private/public keys if its checked. You need to add generated public key to your host's authorized_keys file"

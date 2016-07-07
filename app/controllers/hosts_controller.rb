@@ -10,6 +10,7 @@ class HostsController < ApplicationController
   # GET /hosts/1
   # GET /hosts/1.json
   def show
+    @plugins = Plugin.all
   end
 
   # GET /hosts/new
@@ -74,6 +75,6 @@ class HostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def host_params
-      params.require(:host).permit(:name, :addr, :private_key, :public_key, :generate_keys)
+      params.require(:host).permit(:name, :addr, :username, :private_key, :public_key, :generate_keys)
     end
 end

@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  get 'plugins/index'
+
+  get 'plugins/create'
+
   resources :app_configs
   resources :apps
   resources :hosts do
+    resources :plugins
     member do
       get :sync
     end

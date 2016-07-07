@@ -1,0 +1,16 @@
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Version
+        %th Installed
+        %th
+
+    %tbody
+      - plugins.each do |plugin|
+        %tr
+          %td= plugin.name
+          %td= plugin.version
+          %td= host.plugins.include?(plugin.slug)
+          %td= link_to 'Install', host_plugins_path(host_id: @host.id, slug: plugin.slug), method: :post

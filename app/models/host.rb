@@ -42,8 +42,24 @@ class Host < ApplicationRecord
     end
   end
 
+  def sync_plugins
+    plugin_list = dokku_cmd("plugin")
+    Plugin.all.each do |plugin|
+      if plugin_list.include? plugin.slug
+        puts "yes"
+        self.plugins.push plugin.slug
+      else
+        puts "no"
+        self.plugins.delete plugin.slug
+      end
+    end
+
+    self.save!
+  end
+
   def sync
-    sync_apps
+    self.sync_apps
+    self.sync_plugins
   end
 
   def to_s

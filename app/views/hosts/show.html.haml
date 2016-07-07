@@ -15,10 +15,11 @@
   %dd= @host.name
   %dt Addr:
   %dd= @host.addr
-  %dt Private key:
-  %dd= @host.private_key
   %dt Public key:
   %dd= @host.public_key
 
 %h2 Application List
 = render 'apps/app_table', apps: @host.apps
+
+%h2 Plugin List
+= render 'plugins/plugin_table', plugins: @plugins, host: @host
