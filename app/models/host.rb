@@ -42,6 +42,10 @@ class Host < ApplicationRecord
     end
   end
 
+  def sync
+    sync_apps
+  end
+
   def to_s
     self.name
   end

@@ -15,10 +15,12 @@ class AppsController < ApplicationController
   # GET /apps/new
   def new
     @app = App.new
+    @app.app_configs.new
   end
 
   # GET /apps/1/edit
   def edit
+    @app.app_configs.new
   end
 
   # POST /apps
@@ -69,6 +71,8 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :url, :host_id)
+      params.require(:app).permit(:name, :url, :host_id,
+                                  app_configs_attributes: [:id, :name, :value, :_destroy]
+      )
     end
 end

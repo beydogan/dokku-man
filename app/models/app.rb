@@ -2,6 +2,8 @@ class App < ApplicationRecord
   belongs_to :host
   has_many :app_configs
 
+  accepts_nested_attributes_for :app_configs, reject_if: :all_blank, allow_destroy: true
+
   after_create :create
   after_save :sync
 
@@ -18,6 +20,7 @@ class App < ApplicationRecord
     if self.name_changed?
       self.host.dokku_cmd("apps:rename", [name_was, name])
     end
+    sync_config
   end
 
   def sync_config

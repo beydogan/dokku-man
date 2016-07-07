@@ -48,6 +48,7 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.2)
     byebug (9.0.5)
+    cocoon (1.2.9)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
     erubis (2.7.0)
@@ -183,6 +184,7 @@ DEPENDENCIES
   bootstrap-generators (~> 3.3.4)
   bootstrap-sass (~> 3.3.6)
   byebug
+  cocoon
   haml-rails
   jbuilder (~> 2.5)
   jquery-rails

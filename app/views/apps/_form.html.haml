@@ -6,5 +6,17 @@
     = f.input :url
     = f.association :host
 
+  #app-configs
+    %h2 Environment Variables
+    .row.m-b-10
+      .col-md-5
+        %b Name
+      .col-md-6
+        %b Value
+    = f.simple_fields_for :app_configs do |ff|
+      = render 'app_config_fields', f: ff
+    .links.pull-right
+      = link_to_add_association 'Add New', f, :app_configs, class: "btn btn-primary"
+    .clearfix
   .form-actions
     = f.button :submit

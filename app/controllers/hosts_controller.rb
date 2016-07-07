@@ -1,5 +1,5 @@
 class HostsController < ApplicationController
-  before_action :set_host, only: [:show, :edit, :update, :destroy]
+  before_action :set_host, only: [:show, :edit, :update, :destroy, :sync]
 
   # GET /hosts
   # GET /hosts.json
@@ -59,6 +59,11 @@ class HostsController < ApplicationController
       format.html { redirect_to hosts_url, notice: 'Host was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def sync
+    @host.sync
+    redirect_to host_url(@host), notice: 'Host was successfully synced.'
   end
 
   private

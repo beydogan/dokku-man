@@ -5,6 +5,9 @@
   = link_to edit_host_path(@host), class: 'btn btn-primary' do
     %span.glyphicon.glyphicon-pencil
     Edit
+  = link_to sync_host_path(@host), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-refresh
+    Sync Host
   %h1 Show host
 
 %dl.dl-horizontal
@@ -16,3 +19,6 @@
   %dd= @host.private_key
   %dt Public key:
   %dd= @host.public_key
+
+%h2 Application List
+= render 'apps/app_table', apps: @host.apps
