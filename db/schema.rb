@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707145556) do
+ActiveRecord::Schema.define(version: 20160707154203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,20 @@ ActiveRecord::Schema.define(version: 20160707145556) do
     t.string   "plugins",     default: [],              array: true
   end
 
+  create_table "plugin_instances", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "app_id"
+    t.integer  "host_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_plugin_instances_on_app_id", using: :btree
+    t.index ["host_id"], name: "index_plugin_instances_on_host_id", using: :btree
+  end
+
   add_foreign_key "app_configs", "apps"
   add_foreign_key "apps", "hosts"
+  add_foreign_key "plugin_instances", "apps"
+  add_foreign_key "plugin_instances", "hosts"
 end

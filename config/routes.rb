@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :app_configs
   resources :apps
   resources :hosts do
+    resources :plugin_instances
     resources :plugins
     member do
       get :sync

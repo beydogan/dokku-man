@@ -18,3 +18,11 @@
 %h2 Environment Variables
 
 = render 'app_configs/config_table', configs: @app.app_configs
+
+%h2 Linked Plugins
+
+= render 'plugin_instances/plugin_instance_table', instances: @app.plugin_instances
+
+= link_to new_host_plugin_instance_path(@app.host_id), class: 'btn btn-primary' do
+  %span.glyphicon.glyphicon-plus
+  Add New

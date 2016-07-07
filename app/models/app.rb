@@ -1,6 +1,7 @@
 class App < ApplicationRecord
   belongs_to :host
   has_many :app_configs
+  has_many :plugin_instances
 
   accepts_nested_attributes_for :app_configs, reject_if: :all_blank, allow_destroy: true
 

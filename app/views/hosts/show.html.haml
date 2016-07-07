@@ -23,3 +23,10 @@
 
 %h2 Plugin List
 = render 'plugins/plugin_table', plugins: @plugins, host: @host
+
+%h2 Plugin Instances
+
+= render 'plugin_instances/plugin_instance_table', instances: @host.plugin_instances, host_scope: true
+= link_to new_host_plugin_instance_path(@host.id), class: 'btn btn-primary' do
+  %span.glyphicon.glyphicon-plus
+  Add New Instance

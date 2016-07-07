@@ -1,0 +1,11 @@
+-# path = @plugin_instance.persisted? ? host_plugin_instance_path([@host, @plugin_instance]) : host_plugin_instances_path(@host)
+= simple_form_for([@host, @plugin_instance]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :type, collection: @plugins.collect{|p| [p.name, p.class_name]}
+    = f.association :app, collection: @apps
+
+  .form-actions
+    = f.button :submit

@@ -2,6 +2,7 @@ require 'net/ssh'
 
 class Host < ApplicationRecord
   has_many :apps
+  has_many :plugin_instances
 
   attr_accessor :generate_keys
 
