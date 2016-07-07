@@ -1,0 +1,17 @@
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Value
+        %th
+
+    %tbody
+      - configs.each do |app_config|
+        %tr
+          %td= app_config.name
+          %td= app_config.value
+          %td
+            = link_to 'Show', app_config
+            = link_to 'Edit', edit_app_config_path(app_config)
+            = link_to 'Destroy', app_config, data: { confirm: 'Are you sure?' }, method: :delete

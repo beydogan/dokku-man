@@ -9,9 +9,7 @@
     %thead
       %tr
         %th Name
-        %th Addr
-        %th Private key
-        %th Public key
+        %th Ip Address
         %th
         %th
         %th
@@ -21,8 +19,6 @@
         %tr
           %td= host.name
           %td= host.addr
-          %td= host.private_key
-          %td= host.public_key
           %td= link_to 'Show', host
           %td= link_to 'Edit', edit_host_path(host)
           %td= link_to 'Destroy', host, data: { confirm: 'Are you sure?' }, method: :delete

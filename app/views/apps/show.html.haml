@@ -5,7 +5,7 @@
   = link_to edit_app_path(@app), class: 'btn btn-primary' do
     %span.glyphicon.glyphicon-pencil
     Edit
-  %h1 Show app
+  %h1 Application Details
 
 %dl.dl-horizontal
   %dt Name:
@@ -14,3 +14,7 @@
   %dd= @app.url
   %dt Host:
   %dd= @app.host
+
+%h2 Environment Variables
+
+= render 'app_configs/config_table', configs: @app.app_configs
