@@ -155,6 +155,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkey (1.8.0)
     sshkit (1.11.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -193,6 +194,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 5.0)
   simple_form
+  sshkey
   sshkit
   turbolinks (~> 5)
   web-console

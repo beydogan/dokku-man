@@ -3,6 +3,11 @@ require 'net/ssh'
 class Host < ApplicationRecord
   has_many :apps
 
+  attr_accessor :generate_keys
+
+  before_save :generate_and_save_keys
+  before_save :parse_private_key
+
   def execute(cmd)
     Net::SSH.start(
         self.addr, 'root',
@@ -39,5 +44,17 @@ class Host < ApplicationRecord
 
   def to_s
     self.name
+  end
+
+  def generate_and_save_keys
+    if generate_keys == "1"
+      key = SSHKey.generate
+      self.private_key = key.private_key
+      self.public_key = key.ssh_public_key
+    end
+  end
+
+  def parse_private_key
+    self.private_key = self.private_key.gsub("\r\n          ", "\n") #TODO find better way
   end
 end
