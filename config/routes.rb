@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :app_configs
+  resources :apps
   resources :hosts
   root to: 'home#index'
 

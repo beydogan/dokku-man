@@ -1,0 +1,26 @@
+.page-header
+  = link_to new_app_config_path, class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-plus
+    New App config
+  %h1 Listing app_configs
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Value
+        %th App
+        %th
+        %th
+        %th
+
+    %tbody
+      - @app_configs.each do |app_config|
+        %tr
+          %td= app_config.name
+          %td= app_config.value
+          %td= app_config.app
+          %td= link_to 'Show', app_config
+          %td= link_to 'Edit', edit_app_config_path(app_config)
+          %td= link_to 'Destroy', app_config, data: { confirm: 'Are you sure?' }, method: :delete

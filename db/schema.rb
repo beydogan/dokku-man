@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707094547) do
+ActiveRecord::Schema.define(version: 20160707102721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "app_configs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.integer  "app_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_app_configs_on_app_id", using: :btree
+  end
+
+  create_table "apps", force: :cascade do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "host_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_apps_on_host_id", using: :btree
+  end
 
   create_table "hosts", force: :cascade do |t|
     t.string   "name"
@@ -24,4 +42,6 @@ ActiveRecord::Schema.define(version: 20160707094547) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "app_configs", "apps"
+  add_foreign_key "apps", "hosts"
 end

@@ -1,0 +1,16 @@
+.page-header
+  = link_to app_configs_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-list-alt
+    Back
+  = link_to edit_app_config_path(@app_config), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-pencil
+    Edit
+  %h1 Show app_config
+
+%dl.dl-horizontal
+  %dt Name:
+  %dd= @app_config.name
+  %dt Value:
+  %dd= @app_config.value
+  %dt App:
+  %dd= @app_config.app

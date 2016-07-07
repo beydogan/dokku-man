@@ -1,0 +1,10 @@
+= simple_form_for(@app_config) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :value
+    = f.association :app
+
+  .form-actions
+    = f.button :submit
