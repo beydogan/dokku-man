@@ -7,23 +7,21 @@
     %span.glyphicon.glyphicon-plus
     New Host
 
-.box
-  .box-body
-    .table-responsive
-      %table.table.table-striped.table-bordered.table-hover
-        %thead
-          %tr
-            %th Name
-            %th Ip Address
-            %th
-            %th
-            %th
+.row
+  - @hosts.each do |host|
+    .col-md-3
+      .info-box
+        = link_to host_path(host) do
+          %span.info-box-icon.bg-aqua
+            %i.fa.fa-server
+        .info-box-content
+          .info-box-text
+            = link_to host.name, host_path(host)
+          .info-box-number
+            = host.addr
+            %br
+            %span.pull-right
+              %i.fa.fa-rocket
+              = host.apps.count
+              &nbsp;apps
 
-        %tbody
-          - @hosts.each do |host|
-            %tr
-              %td= host.name
-              %td= host.addr
-              %td= link_to 'Show', host
-              %td= link_to 'Edit', edit_host_path(host)
-              %td= link_to 'Destroy', host, data: { confirm: 'Are you sure?' }, method: :delete
