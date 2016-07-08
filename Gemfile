@@ -9,6 +9,8 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'haml-rails'
+gem 'uglifier'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end
@@ -27,3 +29,4 @@ gem 'net-ssh'
 gem 'sshkey'
 gem 'cocoon'
 gem 'ambry'
+gem "interactor-rails", "~> 2.0"

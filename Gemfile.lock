@@ -71,6 +71,10 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
+    interactor (3.1.0)
+    interactor-rails (2.0.2)
+      interactor (~> 3.0)
+      rails (>= 3, < 5.1)
     jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -169,6 +173,8 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (3.0.0)
+      execjs (>= 0.3.0, < 3)
     web-console (3.3.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -188,6 +194,7 @@ DEPENDENCIES
   byebug
   cocoon
   haml-rails
+  interactor-rails (~> 2.0)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
@@ -201,6 +208,7 @@ DEPENDENCIES
   sshkey
   sshkit
   turbolinks (~> 5)
+  uglifier
   web-console
 
 BUNDLED WITH
