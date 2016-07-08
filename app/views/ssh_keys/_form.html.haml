@@ -1,0 +1,9 @@
+= simple_form_for([@host, @ssh_key]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :key
+
+  .form-actions
+    = f.button :submit

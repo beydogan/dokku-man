@@ -1,0 +1,16 @@
+.page-header
+  = link_to ssh_keys_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-list-alt
+    Back
+  = link_to edit_ssh_key_path(@ssh_key), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-pencil
+    Edit
+  %h1 Show ssh_key
+
+%dl.dl-horizontal
+  %dt Name:
+  %dd= @ssh_key.name
+  %dt Key:
+  %dd= @ssh_key.key
+  %dt Host:
+  %dd= @ssh_key.host

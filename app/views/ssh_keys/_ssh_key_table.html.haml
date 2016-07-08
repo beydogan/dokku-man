@@ -1,0 +1,16 @@
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Fingerprint
+        %th
+        %th
+
+    %tbody
+      - ssh_keys.each do |ssh_key|
+        %tr
+          %td= ssh_key.name
+          %td= ssh_key.fingerprint
+          %td= link_to 'Show', [@host, ssh_key]
+          %td= link_to 'Destroy', [@host, ssh_key], data: { confirm: 'Are you sure?' }, method: :delete

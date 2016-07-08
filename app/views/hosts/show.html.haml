@@ -33,3 +33,10 @@
     = link_to new_host_plugin_instance_path(@host.id), class: 'btn btn-primary' do
       %span.glyphicon.glyphicon-plus
       Add New Instance
+
+    %h2 SSH Keys
+
+    = render 'ssh_keys/ssh_key_table', ssh_keys: @host.ssh_keys
+    = link_to new_host_ssh_key_path(@host.id), class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      Add New SSH Key

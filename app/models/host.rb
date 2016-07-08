@@ -3,6 +3,7 @@ require 'net/ssh'
 class Host < ApplicationRecord
   has_many :apps
   has_many :plugin_instances
+  has_many :ssh_keys
 
   attr_accessor :generate_keys
 
@@ -78,8 +79,6 @@ class Host < ApplicationRecord
       end
     end
   end
-
-
 
   def sync!
     self.sync_apps

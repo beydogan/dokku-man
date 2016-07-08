@@ -1,0 +1,7 @@
+.page-header
+  = link_to new_host_ssh_key_path(@host.id), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-plus
+    New Ssh key
+  %h1 Listing ssh_keys
+
+= render 'ssh_key_table', ssh_keys: @ssh_keys

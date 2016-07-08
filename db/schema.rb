@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708100324) do
+ActiveRecord::Schema.define(version: 20160708174952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,8 +59,19 @@ ActiveRecord::Schema.define(version: 20160708100324) do
     t.index ["host_id"], name: "index_plugin_instances_on_host_id", using: :btree
   end
 
+  create_table "ssh_keys", force: :cascade do |t|
+    t.string   "name"
+    t.text     "key"
+    t.string   "fingerprint"
+    t.integer  "host_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["host_id"], name: "index_ssh_keys_on_host_id", using: :btree
+  end
+
   add_foreign_key "app_configs", "apps"
   add_foreign_key "apps", "hosts"
   add_foreign_key "plugin_instances", "apps"
   add_foreign_key "plugin_instances", "hosts"
+  add_foreign_key "ssh_keys", "hosts"
 end
