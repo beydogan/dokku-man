@@ -7,13 +7,22 @@
     Edit
   %h1 Application Details
 
-%dl.dl-horizontal
-  %dt Name:
-  %dd= @app.name
-  %dt Url:
-  %dd= @app.url
-  %dt Host:
-  %dd= @app.host
+.row
+  .col-md-8
+    %dl.dl-horizontal
+      %dt Name:
+      %dd= @app.name
+      %dt Url:
+      %dd= @app.url
+      %dt Host:
+      %dd= @app.host
+  .col-md-4
+    %h3 Process List
+    %dl.dl-horizontal
+      - @app.scale.each do |k,v|
+        %dt.text-left= k
+        %dd= v
+
 
 %h2 Environment Variables
 

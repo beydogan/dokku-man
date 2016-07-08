@@ -79,6 +79,8 @@ class Host < ApplicationRecord
     end
   end
 
+
+
   def sync!
     self.sync_apps
     self.sync_plugins

@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708095301) do
+ActiveRecord::Schema.define(version: 20160708100324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "app_configs", force: :cascade do |t|
     t.string   "name"
@@ -28,8 +29,9 @@ ActiveRecord::Schema.define(version: 20160708095301) do
     t.string   "name"
     t.string   "url"
     t.integer  "host_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.hstore   "scale",      default: {}, null: false
     t.index ["host_id"], name: "index_apps_on_host_id", using: :btree
   end
 

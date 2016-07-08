@@ -1,4 +1,6 @@
 class App < ApplicationRecord
+  include AppCommands
+
   belongs_to :host
   has_many :app_configs, dependent: :destroy
   has_many :plugin_instances, dependent: :destroy
@@ -29,5 +31,10 @@ class App < ApplicationRecord
   def sync_config
     configs = app_configs.collect {|c| "#{c.name}=#{c.value}" }.join(" ")
     self.host.dokku_cmd("config:set #{self.name} #{configs}")
+  end
+
+  def sync_scale
+    self.scale = get_scale_cmd
+    self.save
   end
 end
