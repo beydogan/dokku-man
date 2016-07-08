@@ -16,6 +16,16 @@
       %dd= @app.url
       %dt Host:
       %dd= @app.host
+
+    .box
+      .box-header
+        %h3.box-title Deployment
+      .box-body
+        git remote add dokku dokku@#{@app.host.addr}:#{@app.name}
+        %br
+        git push dokku master
+
+
   .col-md-4
     %h3 Process List
     %dl.dl-horizontal
