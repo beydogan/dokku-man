@@ -1,0 +1,31 @@
+/ Main Header
+%header.main-header
+  / Logo
+  %a.logo{:href => "index2.html"}
+    / mini logo for sidebar mini 50x50 pixels
+    %span.logo-mini
+      %b> D
+      M
+    / logo for regular state and mobile devices
+    %span.logo-lg
+      %b> Dokku
+      Manager
+  / Header Navbar
+  %nav.navbar.navbar-static-top{:role => "navigation"}
+    / Sidebar toggle button
+    %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+      %span.sr-only Toggle navigation
+    / Navbar Right Menu
+    .navbar-custom-menu
+      %ul.nav.navbar-nav
+        %li.dropdown.notifications-menu
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %i.fa.fa-cog
+              &nbsp;
+          %ul.dropdown-menu
+            %li
+              %ul.menu
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-sign-out
+                    Logout

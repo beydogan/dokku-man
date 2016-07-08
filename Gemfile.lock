@@ -55,6 +55,8 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.12)
+    font-awesome-rails (4.6.3.1)
+      railties (>= 3.2, < 5.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -193,6 +195,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
   byebug
   cocoon
+  font-awesome-rails
   haml-rails
   interactor-rails (~> 2.0)
   jbuilder (~> 2.5)

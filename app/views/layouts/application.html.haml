@@ -15,27 +15,21 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body
-    %nav.navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
-      .container
-        .navbar-header
-          %button.navbar-toggle.collapsed{type: "button", data: {toggle: "collapse", target: "#navbar"}, aria: {expanded: "false", controls: "navbar"} }
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to "Dokku Manager", root_path, class: "navbar-brand"
-        #navbar.collapse.navbar-collapse
-          %ul.nav.navbar-nav
-            %li.active
-              %a{href: root_path} Home
-            %li
-              %a{href: apps_path} Apps
-    .container
-      - flash.each do |name, msg|
-        = content_tag :div, class: "alert alert-#{name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do
-          %button.close{type: "button", data: {dismiss: "alert"} }
-            %span{aria: {hidden: "true"} } &times;
-            %span.sr-only Close
-          = msg
-      = yield
+  %body.skin-red-light.sidebar-mini
+    .wrapper
+      = render 'layouts/header'
+      = render 'layouts/sidebar'
+      .content-wrapper
+        %section.content-header
+          %h1
+            = yield :header_title
+            - if content_for? :header_subtitle
+              %small= yield :header_subtitle
+          - if content_for? :header_actions
+            .pull-right.header-actions
+              = yield :header_actions
+            .clearfix
+        %section.content
+          = render 'layouts/flashes'
+          = yield
+      = render 'layouts/footer'

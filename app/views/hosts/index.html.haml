@@ -1,24 +1,29 @@
-.page-header
+- content_for :header_title do
+  Host List
+- content_for :header_subtitle do
+  You can manage your hosts in here
+- content_for :header_actions do
   = link_to new_host_path, class: 'btn btn-primary' do
     %span.glyphicon.glyphicon-plus
     New Host
-  %h1 Listing hosts
 
-.table-responsive
-  %table.table.table-striped.table-bordered.table-hover
-    %thead
-      %tr
-        %th Name
-        %th Ip Address
-        %th
-        %th
-        %th
+.box
+  .box-body
+    .table-responsive
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Ip Address
+            %th
+            %th
+            %th
 
-    %tbody
-      - @hosts.each do |host|
-        %tr
-          %td= host.name
-          %td= host.addr
-          %td= link_to 'Show', host
-          %td= link_to 'Edit', edit_host_path(host)
-          %td= link_to 'Destroy', host, data: { confirm: 'Are you sure?' }, method: :delete
+        %tbody
+          - @hosts.each do |host|
+            %tr
+              %td= host.name
+              %td= host.addr
+              %td= link_to 'Show', host
+              %td= link_to 'Edit', edit_host_path(host)
+              %td= link_to 'Destroy', host, data: { confirm: 'Are you sure?' }, method: :delete

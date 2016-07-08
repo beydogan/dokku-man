@@ -30,3 +30,4 @@ gem 'sshkey'
 gem 'cocoon'
 gem 'ambry'
 gem "interactor-rails", "~> 2.0"
+gem "font-awesome-rails"

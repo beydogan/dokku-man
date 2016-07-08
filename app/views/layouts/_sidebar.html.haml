@@ -1,0 +1,16 @@
+%aside.main-sidebar
+  / sidebar: style can be found in sidebar.less
+  %section.sidebar
+    %ul.sidebar-menu
+      %li{class: ("active" if current_page?(root_path))}
+        %a{:href => root_path}
+          %i.fa.fa-dashboard
+          %span Dashboard
+      %li{class: ("active" if current_page?(hosts_path))}
+        %a{:href => hosts_path}
+          %i.fa.fa-server
+          %span Hosts
+      %li{class: ("active" if current_page?(apps_path))}
+        %a{:href => apps_path}
+          %i.fa.fa-rocket
+          %span Apps
