@@ -1,3 +1,3 @@
-web: bundle exec unicorn -c ./config/unicorn.rb
-worker: bundle exec sidekiq -c 2
-hololo: bundle exec
+web: bin/rails server -p $PORT -e $RAILS_ENV
+worker: bundle exec rake jobs:work
+hololo: bundle exec rake jobs:work
