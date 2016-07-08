@@ -4,7 +4,7 @@ class PluginInstance < ApplicationRecord
 
   after_create :create_instance
 
-  validates :type, uniqueness: {scope: :app }
+  validates :name, uniqueness: {scope: :host}
 
   private
 

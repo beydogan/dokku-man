@@ -63,7 +63,7 @@ class HostsController < ApplicationController
   end
 
   def sync
-    @host.sync
+    @host.sync!
     redirect_to host_url(@host), notice: 'Host was successfully synced.'
   end
 

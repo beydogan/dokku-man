@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707154203) do
+ActiveRecord::Schema.define(version: 20160708095301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,10 +38,11 @@ ActiveRecord::Schema.define(version: 20160707154203) do
     t.string   "addr"
     t.text     "private_key"
     t.text     "public_key"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "username"
-    t.string   "plugins",     default: [],              array: true
+    t.string   "plugins",        default: [],              array: true
+    t.datetime "last_synced_at"
   end
 
   create_table "plugin_instances", force: :cascade do |t|
