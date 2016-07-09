@@ -10,7 +10,7 @@ Web interface to manage your dokku servers. Its **work in progress**
 
 * Manage your servers
 
-## Host Dashboard
+## Server Dashboard
 ![SS](http://i.imgur.com/TCuSjDS.jpg)
 
 * Manage a server. 
