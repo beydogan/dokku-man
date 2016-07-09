@@ -1,47 +1,51 @@
-.page-header
+- content_for :header_title do
+  Application: #{@app.name}
+- content_for :header_actions do
   = link_to apps_path, class: 'btn btn-default' do
-    %span.glyphicon.glyphicon-list-alt
+    %span.fa.fa-arrow-left
     Back
   = link_to edit_app_path(@app), class: 'btn btn-primary' do
-    %span.glyphicon.glyphicon-pencil
+    %span.fa.fa-pencil
     Edit
-  %h1 Application Details
-
-.row
-  .col-md-8
-    %dl.dl-horizontal
-      %dt Name:
-      %dd= @app.name
-      %dt Url:
-      %dd= @app.url
-      %dt Host:
-      %dd= @app.host
-
-    .box
-      .box-header
-        %h3.box-title Deployment
-      .box-body
-        git remote add dokku dokku@#{@app.host.addr}:#{@app.name}
-        %br
-        git push dokku master
 
 
-  .col-md-4
-    %h3 Process List
-    %dl.dl-horizontal
-      - @app.scale.each do |k,v|
-        %dt.text-left= k
-        %dd= v
+.box
+  .box-body
+    .row
+      .col-md-8
+        %dl.dl-horizontal
+          %dt Name:
+          %dd= @app.name
+          %dt Url:
+          %dd= @app.url
+          %dt Host:
+          %dd= @app.host
+
+        .box
+          .box-header
+            %h3.box-title Deployment
+          .box-body
+            git remote add dokku dokku@#{@app.host.addr}:#{@app.name}
+            %br
+            git push dokku master
 
 
-%h2 Environment Variables
+      .col-md-4
+        %h3 Process List
+        %dl.dl-horizontal
+          - @app.scale.each do |k,v|
+            %dt.text-left= k
+            %dd= v
 
-= render 'app_configs/config_table', configs: @app.app_configs
 
-%h2 Linked Plugins
+    %h2 Environment Variables
 
-= render 'plugin_instances/plugin_instance_table', instances: @app.plugin_instances
+    = render 'app_configs/config_table', configs: @app.app_configs
 
-= link_to new_host_plugin_instance_path(@app.host_id), class: 'btn btn-primary' do
-  %span.glyphicon.glyphicon-plus
-  Add New
+    %h2 Linked Plugins
+
+    = render 'plugin_instances/plugin_instance_table', instances: @app.plugin_instances
+
+    = link_to new_host_plugin_instance_path(@app.host_id), class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      Add New
