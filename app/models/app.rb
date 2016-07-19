@@ -29,8 +29,9 @@ class App < ApplicationRecord
   end
 
   def sync_config
-    #configs = app_configs.collect {|c| "#{c.name}=#{c.value}" }.join(" ")
-    #self.host.dokku_cmd("config:set #{self.name} #{configs}")
+    configs = app_configs.collect {|c| "#{c.name.lstrip.rstrip}='#{c.value.lstrip.rstrip}'" }.join(" ")
+    puts configs
+    self.host.dokku_cmd("config:set #{self.name} #{configs}")
   end
 
   def sync_scale
