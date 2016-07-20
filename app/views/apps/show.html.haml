@@ -4,6 +4,13 @@
   = link_to apps_path, class: 'btn btn-default' do
     %span.fa.fa-arrow-left
     Back
+  = link_to sync_app_path(sync_method: "pull"), class: 'btn btn-success' do
+    %span.fa.fa-arrow-down
+    Sync(Pull)
+  = link_to sync_app_path(sync_method: "push"), class: 'btn btn-warning', data: {confirm: "It will owerrite everything on remote host. Are you sure?"} do
+    %span.fa.fa-arrow-up
+    Sync(Push)
+
   = link_to edit_app_path(@app), class: 'btn btn-primary' do
     %span.fa.fa-pencil
     Edit

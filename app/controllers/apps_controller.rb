@@ -1,5 +1,16 @@
 class AppsController < ApplicationController
-  before_action :set_app, only: [:show, :edit, :update, :destroy]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :sync]
+
+  def sync
+    method = (params[:sync_method] == "push") ? App::PUSH : App::PULL
+
+    begin
+      @app.sync(method)
+      redirect_to @app, notice: "App was successfully synced."
+    rescue
+      redirect_to @app, notice: "An error occured. See logs."
+    end
+  end
 
   # GET /apps
   # GET /apps.json

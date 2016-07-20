@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   get 'plugins/create'
 
   resources :app_configs
-  resources :apps
+  resources :apps do
+    member do
+      get :sync
+    end
+  end
   resources :hosts do
     resources :ssh_keys
     resources :plugin_instances

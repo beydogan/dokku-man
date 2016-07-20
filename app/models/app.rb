@@ -10,7 +10,7 @@ class App < ApplicationRecord
   validates :name, uniqueness: {scope: :host}
 
   after_create :create
-  after_save :sync
+  after_save -> { sync(PUSH) }
 
   def execute(cmd, args = [])
     args = args.unshift(self.name)
@@ -21,17 +21,30 @@ class App < ApplicationRecord
     self.execute("create")
   end
 
-  def sync
+  def sync(method = PULL)
     if self.name_changed?
       self.host.dokku_cmd("apps:rename", [name_was, name])
     end
-    sync_config
+    sync_config(method)
   end
 
-  def sync_config
-    configs = app_configs.collect {|c| "#{c.name.lstrip.rstrip}='#{c.value.lstrip.rstrip}'" }.join(" ")
-    puts configs
-    self.host.dokku_cmd("config:set #{self.name} #{configs}")
+  def sync_config(method = PULL)
+    if method == PUSH
+      configs = app_configs.collect {|c| "#{c.name.lstrip.rstrip}='#{c.value.lstrip.rstrip}'" }.join(" ")
+      self.host.dokku_cmd("config:set #{self.name} #{configs}")
+    else
+      self.app_configs.destroy_all
+      output = self.host.dokku_cmd("config #{self.name}")
+      config_strs = output.split("\n").drop(1)
+      puts config_strs
+      config_strs.each do |s|
+        puts s
+        scan = s.scan(/(([a-zA-Z\_\d])+)\:\s*(.*)\z/)[0]
+        key = scan.first
+        value = scan.last
+        self.app_configs.create(name: key, value: value)
+      end
+    end
   end
 
   def sync_scale
