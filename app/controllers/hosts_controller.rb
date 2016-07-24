@@ -4,7 +4,7 @@ class HostsController < ApplicationController
   # GET /hosts
   # GET /hosts.json
   def index
-    @hosts = Host.all
+    @hosts = current_user.hosts
   end
 
   # GET /hosts/1
@@ -70,9 +70,8 @@ class HostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_host
-      @host = Host.find(params[:id])
+      @host = current_user.hosts.find(params[:id])
     end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def host_params
       params.require(:host).permit(:name, :addr, :username, :private_key, :public_key, :generate_keys)

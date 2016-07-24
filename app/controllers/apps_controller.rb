@@ -15,7 +15,7 @@ class AppsController < ApplicationController
   # GET /apps
   # GET /apps.json
   def index
-    @apps = App.all
+    @apps = current_user.apps
   end
 
   # GET /apps/1
@@ -27,6 +27,7 @@ class AppsController < ApplicationController
   def new
     @app = App.new
     @app.app_configs.new
+    load_form_data
   end
 
   # GET /apps/1/edit
@@ -78,6 +79,10 @@ class AppsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_app
       @app = App.find(params[:id])
+    end
+
+    def load_form_data
+      @hosts = current_user.hosts
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
