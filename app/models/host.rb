@@ -60,7 +60,7 @@ class Host < ApplicationRecord
   def sync_instances
     transaction do
       plugin_instances.destroy_all # Destroy all instances first
-      plugins.each do |plugin_str|
+        plugins.uniq.each do |plugin_str|
         plugin = Plugin.find plugin_str
         result = dokku_cmd plugin.list_cmd
         list = result.split("\n").drop(1)
@@ -75,6 +75,7 @@ class Host < ApplicationRecord
           end
 
           instance = PluginInstance.find_or_create_by(name: instance_name, app_id: app.id, host_id: self.id, type: plugin.class_name)
+          instance
         end
       end
     end

@@ -1,5 +1,6 @@
 = simple_form_for(@app) do |f|
   = f.error_notification
+  = @app.errors.full_messages
 
   .form-inputs
     = f.input :name
