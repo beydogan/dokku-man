@@ -1,5 +1,5 @@
 =======
-# dokku-man
+# dokku-man [![Status](https://img.shields.io/badge/stability-experimental-green.svg?style=flat-square)]()
 Web interface to manage your dokku servers. Its **work in progress**
 
 
