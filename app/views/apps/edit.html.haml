@@ -6,5 +6,18 @@
     %span.glyphicon.glyphicon-info-sign
     Show
   %h1 Editing app
+- content_for :header_title do
+  Edit app
+- content_for :header_actions do
+  = link_to apps_path, class: 'btn btn-primary' do
+    %span.fa.fa-arrow-left
+    Back
+  = link_to @app, class: 'btn btn-primary' do
+    %span.fa.fa-info
+    Show
+
+= render 'form'
+
+
 
 = render 'form'

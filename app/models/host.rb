@@ -4,6 +4,7 @@ class Host < ApplicationRecord
   has_many :apps
   has_many :plugin_instances
   has_many :ssh_keys
+  belongs_to :user
 
   attr_accessor :generate_keys
 

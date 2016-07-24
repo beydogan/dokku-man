@@ -1,23 +1,22 @@
-= simple_form_for(@app) do |f|
-  = f.error_notification
-  = @app.errors.full_messages
+.box
+  .box-body
+    = simple_form_for(@app) do |f|
+      = f.error_notification
 
-  .form-inputs
-    = f.input :name
-    = f.input :url
-    = f.association :host
+      .form-inputs
+        = f.input :name
 
-  #app-configs
-    %h2 Environment Variables
-    .row.m-b-10
-      .col-md-5
-        %b Name
-      .col-md-6
-        %b Value
-    = f.simple_fields_for :app_configs do |ff|
-      = render 'app_config_fields', f: ff
-    .links.pull-right
-      = link_to_add_association 'Add New', f, :app_configs, class: "btn btn-primary"
-    .clearfix
-  .form-actions
-    = f.button :submit
+      #app-configs
+        %h2 Environment Variables
+        .row.m-b-10
+          .col-xs-5
+            %b Name
+          .col-xs-6
+            %b Value
+        = f.simple_fields_for :app_configs do |ff|
+          = render 'app_config_fields', f: ff
+        .links.pull-right
+          = link_to_add_association 'Add New', f, :app_configs, class: "btn btn-primary"
+        .clearfix
+      .form-actions
+        = f.button :submit

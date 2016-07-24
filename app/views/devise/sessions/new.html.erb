@@ -1,0 +1,38 @@
+<p class="login-box-msg">Lütfen giriş yapın</p>
+
+<div class="panel-body">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
+      <div class="form-group has-feedback">
+        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+            <label>
+              <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+            </label>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <%= f.submit  "Login", class: "btn btn-primary btn-block btn-flat" %>
+        </div>
+        <!-- /.col -->
+      </div>
+    <% end %>
+  </div>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
+<%= render "devise/shared/links" %>

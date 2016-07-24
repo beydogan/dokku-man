@@ -16,16 +16,15 @@
     %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
       %span.sr-only Toggle navigation
     / Navbar Right Menu
-    .navbar-custom-menu
-      %ul.nav.navbar-nav
-        %li.dropdown.notifications-menu
-          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            %i.fa.fa-cog
-              &nbsp;
-          %ul.dropdown-menu
-            %li
-              %ul.menu
-                %li
-                  %a{:href => "#"}
-                    %i.fa.fa-sign-out
-                    Logout
+    -if user_signed_in?
+      .navbar-custom-menu
+        %ul.nav.navbar-nav
+          %li.dropdown.notifications-menu
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              %i.fa.fa-cog
+                &nbsp;
+            %ul.dropdown-menu
+              %li
+                %ul.menu
+                  %li
+                    =link_to "Logout", destroy_user_session_path, :method => :delete, :class => "fa fa-sign-out"
