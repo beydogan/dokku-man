@@ -1,0 +1,7 @@
+test: &test
+  adapter: postgresql
+  database: adveli_test_<%= ENV['TRAVIS_BUILD_NUMBER'] %>
+  username: postgres
+
+cucumber:
+  <<: *test
