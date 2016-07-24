@@ -13,6 +13,12 @@ gem 'uglifier'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-expectations', '~> 3.5'
+  gem 'poltergeist'
+  gem 'capybara'
+  gem 'ffaker'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -33,3 +39,4 @@ gem "interactor-rails", "~> 2.0"
 gem "font-awesome-rails"
 # Authentication
 gem "devise"
+
