@@ -82,12 +82,12 @@ class AppsController < ApplicationController
     end
 
     def load_form_data
-      @hosts = current_user.hosts
+      @servers = current_user.servers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :url, :host_id,
+      params.require(:app).permit(:name, :url, :server_id,
                                   app_configs_attributes: [:id, :name, :value, :_destroy]
       )
     end

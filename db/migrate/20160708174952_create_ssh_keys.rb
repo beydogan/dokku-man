@@ -4,7 +4,7 @@ class CreateSshKeys < ActiveRecord::Migration[5.0]
       t.string :name
       t.text :key
       t.string :fingerprint
-      t.references :host, foreign_key: true
+      t.references :server, foreign_key: true
 
       t.timestamps
     end

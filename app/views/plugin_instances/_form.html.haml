@@ -1,5 +1,5 @@
--# path = @plugin_instance.persisted? ? host_plugin_instance_path([@host, @plugin_instance]) : host_plugin_instances_path(@host)
-= simple_form_for([@host, @plugin_instance]) do |f|
+-# path = @plugin_instance.persisted? ? server_plugin_instance_path([@server, @plugin_instance]) : server_plugin_instances_path(@server)
+= simple_form_for([@server, @plugin_instance]) do |f|
   = f.error_notification
 
   .form-inputs

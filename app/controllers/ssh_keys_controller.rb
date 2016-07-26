@@ -1,5 +1,5 @@
 class SshKeysController < ApplicationController
-  before_action :set_host
+  before_action :set_server
   before_action :set_ssh_key, only: [:show, :edit, :update, :destroy]
 
   # GET /ssh_keys
@@ -25,10 +25,10 @@ class SshKeysController < ApplicationController
   # POST /ssh_keys
   # POST /ssh_keys.json
   def create
-    @ssh_key = @host.ssh_keys.new(ssh_key_params)
+    @ssh_key = @server.ssh_keys.new(ssh_key_params)
 
     if @ssh_key.save
-      redirect_to @host, notice: 'Ssh key was successfully created.'
+      redirect_to @server, notice: 'Ssh key was successfully created.'
     else
       render :new
     end
@@ -38,7 +38,7 @@ class SshKeysController < ApplicationController
   # PATCH/PUT /ssh_keys/1.json
   def update
     if @ssh_key.update(ssh_key_params)
-      redirect_to @host, notice: 'Ssh key was successfully updated.'
+      redirect_to @server, notice: 'Ssh key was successfully updated.'
     else
       render :edit
     end
@@ -48,7 +48,7 @@ class SshKeysController < ApplicationController
   # DELETE /ssh_keys/1.json
   def destroy
     @ssh_key.destroy
-    redirect_to @host, notice: 'Ssh key was successfully destroyed.'
+    redirect_to @server, notice: 'Ssh key was successfully destroyed.'
   end
 
   private
@@ -62,7 +62,7 @@ class SshKeysController < ApplicationController
       params.require(:ssh_key).permit(:name, :key)
     end
 
-    def set_host
-      @host = Host.find(params[:host_id])
+    def set_server
+      @server = Server.find(params[:server_id])
     end
 end

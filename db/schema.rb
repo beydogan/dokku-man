@@ -28,14 +28,14 @@ ActiveRecord::Schema.define(version: 20160724095724) do
   create_table "apps", force: :cascade do |t|
     t.string   "name"
     t.string   "url"
-    t.integer  "host_id"
+    t.integer  "server_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.hstore   "scale",      default: {}, null: false
-    t.index ["host_id"], name: "index_apps_on_host_id", using: :btree
+    t.index ["server_id"], name: "index_apps_on_server_id", using: :btree
   end
 
-  create_table "hosts", force: :cascade do |t|
+  create_table "servers", force: :cascade do |t|
     t.string   "name"
     t.string   "addr"
     t.text     "private_key"
@@ -46,29 +46,29 @@ ActiveRecord::Schema.define(version: 20160724095724) do
     t.string   "plugins",        default: [],              array: true
     t.datetime "last_synced_at"
     t.integer  "user_id"
-    t.index ["user_id"], name: "index_hosts_on_user_id", using: :btree
+    t.index ["user_id"], name: "index_servers_on_user_id", using: :btree
   end
 
   create_table "plugin_instances", force: :cascade do |t|
     t.string   "name"
     t.string   "type"
     t.integer  "app_id"
-    t.integer  "host_id"
+    t.integer  "server_id"
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_plugin_instances_on_app_id", using: :btree
-    t.index ["host_id"], name: "index_plugin_instances_on_host_id", using: :btree
+    t.index ["server_id"], name: "index_plugin_instances_on_server_id", using: :btree
   end
 
   create_table "ssh_keys", force: :cascade do |t|
     t.string   "name"
     t.text     "key"
     t.string   "fingerprint"
-    t.integer  "host_id"
+    t.integer  "server_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["host_id"], name: "index_ssh_keys_on_host_id", using: :btree
+    t.index ["server_id"], name: "index_ssh_keys_on_server_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,9 +89,9 @@ ActiveRecord::Schema.define(version: 20160724095724) do
   end
 
   add_foreign_key "app_configs", "apps"
-  add_foreign_key "apps", "hosts"
-  add_foreign_key "hosts", "users"
+  add_foreign_key "apps", "servers"
+  add_foreign_key "servers", "users"
   add_foreign_key "plugin_instances", "apps"
-  add_foreign_key "plugin_instances", "hosts"
-  add_foreign_key "ssh_keys", "hosts"
+  add_foreign_key "plugin_instances", "servers"
+  add_foreign_key "ssh_keys", "servers"
 end

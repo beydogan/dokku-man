@@ -1,20 +1,20 @@
 class App < ApplicationRecord
   include AppCommands
 
-  belongs_to :host
+  belongs_to :server
   has_many :app_configs, dependent: :destroy
   has_many :plugin_instances, dependent: :destroy
 
   accepts_nested_attributes_for :app_configs, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, uniqueness: {scope: :host}
+  validates :name, uniqueness: {scope: :server}
 
   after_create :create
   after_save -> { sync(PUSH) }
 
   def execute(cmd, args = [])
     args = args.unshift(self.name)
-    self.host.dokku_cmd("apps:#{cmd}", args)
+    self.server.dokku_cmd("apps:#{cmd}", args)
   end
 
   def create
@@ -23,7 +23,7 @@ class App < ApplicationRecord
 
   def sync(method = PULL)
     if self.name_changed?
-      self.host.dokku_cmd("apps:rename", [name_was, name])
+      self.server.dokku_cmd("apps:rename", [name_was, name])
     end
     sync_config(method)
   end
@@ -31,10 +31,10 @@ class App < ApplicationRecord
   def sync_config(method = PULL)
     if method == PUSH
       configs = app_configs.collect {|c| "#{c.name.lstrip.rstrip}='#{c.value.lstrip.rstrip}'" }.join(" ")
-      self.host.dokku_cmd("config:set #{self.name} #{configs}")
+      self.server.dokku_cmd("config:set #{self.name} #{configs}")
     else
       self.app_configs.destroy_all
-      output = self.host.dokku_cmd("config #{self.name}")
+      output = self.server.dokku_cmd("config #{self.name}")
       config_strs = output.split("\n").drop(1)
       puts config_strs
       config_strs.each do |s|

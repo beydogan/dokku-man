@@ -3,7 +3,7 @@ class CreateApps < ActiveRecord::Migration[5.0]
     create_table :apps do |t|
       t.string :name
       t.string :url
-      t.references :host, foreign_key: true
+      t.references :server, foreign_key: true
 
       t.timestamps
     end

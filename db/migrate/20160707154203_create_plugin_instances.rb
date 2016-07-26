@@ -4,7 +4,7 @@ class CreatePluginInstances < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :type
       t.references :app, foreign_key: true
-      t.references :host, foreign_key: true
+      t.references :server, foreign_key: true
       t.string :status
 
       t.timestamps

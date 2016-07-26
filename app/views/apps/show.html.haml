@@ -7,7 +7,7 @@
   = link_to sync_app_path(sync_method: "pull"), class: 'btn btn-success' do
     %span.fa.fa-arrow-down
     Sync(Pull)
-  = link_to sync_app_path(sync_method: "push"), class: 'btn btn-warning', data: {confirm: "It will owerrite everything on remote host. Are you sure?"} do
+  = link_to sync_app_path(sync_method: "push"), class: 'btn btn-warning', data: {confirm: "It will owerrite everything on remote server. Are you sure?"} do
     %span.fa.fa-arrow-up
     Sync(Push)
 
@@ -25,14 +25,14 @@
           %dd= @app.name
           %dt Url:
           %dd= @app.url
-          %dt Host:
-          %dd= @app.host
+          %dt Server:
+          %dd= @app.server
 
         .box
           .box-header
             %h3.box-title Deployment
           .box-body
-            git remote add dokku dokku@#{@app.host.addr}:#{@app.name}
+            git remote add dokku dokku@#{@app.server.addr}:#{@app.name}
             %br
             git push dokku master
 
@@ -53,6 +53,6 @@
 
     = render 'plugin_instances/plugin_instance_table', instances: @app.plugin_instances
 
-    = link_to new_host_plugin_instance_path(@app.host_id), class: 'btn btn-primary' do
+    = link_to new_server_plugin_instance_path(@app.server_id), class: 'btn btn-primary' do
       %span.glyphicon.glyphicon-plus
       Add New

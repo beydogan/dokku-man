@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get :sync
     end
   end
-  resources :hosts do
+  resources :servers do
     resources :ssh_keys
     resources :plugin_instances
     resources :plugins
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       get :sync
     end
   end
-  root to: 'hosts#index'
+  root to: 'servers#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

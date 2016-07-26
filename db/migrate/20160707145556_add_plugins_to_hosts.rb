@@ -1,5 +1,5 @@
-class AddPluginsToHosts < ActiveRecord::Migration[5.0]
+class AddPluginsToServers < ActiveRecord::Migration[5.0]
   def change
-    add_column :hosts, :plugins, :string, array: true, default: []
+    add_column :servers, :plugins, :string, array: true, default: []
   end
 end

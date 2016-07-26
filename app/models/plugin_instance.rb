@@ -1,10 +1,10 @@
 class PluginInstance < ApplicationRecord
   belongs_to :app
-  belongs_to :host
+  belongs_to :server
 
   after_create :create_instance
 
-  validates :name, uniqueness: {scope: [:host_id, :type]}
+  validates :name, uniqueness: {scope: [:server_id, :type]}
 
   private
 

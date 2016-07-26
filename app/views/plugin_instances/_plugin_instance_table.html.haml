@@ -4,7 +4,7 @@
       %tr
         %th Name
         %th Type
-        - if defined? host_scope
+        - if defined? server_scope
           %th Linked App
         %th
 
@@ -13,9 +13,9 @@
         %tr
           %td= instance.name
           %td= instance.type
-          - if defined? host_scope
+          - if defined? server_scope
             %td
               = link_to instance.app.name, instance.app if instance.app
-            %td= link_to 'Destroy', host_plugin_instance_path(host_id: @host.id, id: instance.id), data: { confirm: 'Are you sure?' }, method: :delete
+            %td= link_to 'Destroy', server_plugin_instance_path(server_id: @server.id, id: instance.id), data: { confirm: 'Are you sure?' }, method: :delete
           - else
-            %td= link_to 'Destroy', host_plugin_instance_path(host_id: @app.host_id, id: instance.id), data: { confirm: 'Are you sure?' }, method: :delete
+            %td= link_to 'Destroy', server_plugin_instance_path(server_id: @app.server_id, id: instance.id), data: { confirm: 'Are you sure?' }, method: :delete

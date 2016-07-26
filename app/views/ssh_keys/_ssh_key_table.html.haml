@@ -12,5 +12,5 @@
         %tr
           %td= ssh_key.name
           %td= ssh_key.fingerprint
-          %td= link_to 'Show', [@host, ssh_key]
-          %td= link_to 'Destroy', [@host, ssh_key], data: { confirm: 'Are you sure?' }, method: :delete
+          %td= link_to 'Show', [@server, ssh_key]
+          %td= link_to 'Destroy', [@server, ssh_key], data: { confirm: 'Are you sure?' }, method: :delete

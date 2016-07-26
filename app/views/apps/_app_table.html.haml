@@ -4,7 +4,7 @@
       %tr
         %th Name
         %th Url
-        %th Host
+        %th Server
         %th
         %th
         %th
@@ -14,7 +14,7 @@
         %tr
           %td= app.name
           %td= app.url
-          %td= app.host
+          %td= app.server
           %td= link_to 'Show', app
           %td= link_to 'Edit', edit_app_path(app)
           %td= link_to 'Destroy', app, data: { confirm: 'Are you sure?' }, method: :delete

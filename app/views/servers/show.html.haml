@@ -1,0 +1,42 @@
+- content_for :header_title do
+  Server: #{@server.name}
+- content_for :header_actions do
+  = link_to servers_path, class: 'btn btn-primary' do
+    %span.fa.fa-arrow-left
+    Back
+  = link_to sync_server_path(@server), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-refresh
+    Sync Server
+  = link_to edit_server_path(@server), class: 'btn btn-primary' do
+    %span.fa.fa-pencil
+    Edit
+
+.box
+  .box-body
+    %dl.dl-horizontal
+      %dt Name:
+      %dd= @server.name
+      %dt Addr:
+      %dd= @server.addr
+      %dt Public key:
+      %dd= @server.public_key
+
+    %h2 Application List
+    = render 'apps/app_table', apps: @server.apps
+
+    %h2 Plugin List
+    = render 'plugins/plugin_table', plugins: @plugins, server: @server
+
+    %h2 Plugin Instances
+
+    = render 'plugin_instances/plugin_instance_table', instances: @server.plugin_instances, server_scope: true
+    = link_to new_server_plugin_instance_path(@server.id), class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      Add New Instance
+
+    %h2 SSH Keys
+
+    = render 'ssh_keys/ssh_key_table', ssh_keys: @server.ssh_keys
+    = link_to new_server_ssh_key_path(@server.id), class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      Add New SSH Key

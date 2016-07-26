@@ -1,7 +1,7 @@
 - content_for :header_title do
-  Create a new host
+  Edit server #{@server.name}
 - content_for :header_actions do
-  = link_to hosts_path, class: 'btn btn-primary' do
+  = link_to server_path(@server), class: 'btn btn-primary' do
     %span.fa.fa-arrow-left
     Back
 

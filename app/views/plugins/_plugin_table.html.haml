@@ -12,5 +12,5 @@
         %tr
           %td= plugin.name
           %td= plugin.version
-          %td= host.plugins.include?(plugin.slug)
-          %td= link_to 'Install', host_plugins_path(host_id: @host.id, slug: plugin.slug), method: :post
+          %td= server.plugins.include?(plugin.slug)
+          %td= link_to 'Install', server_plugins_path(server_id: @server.id, slug: plugin.slug), method: :post

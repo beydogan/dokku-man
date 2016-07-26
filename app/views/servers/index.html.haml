@@ -1,27 +1,27 @@
 - content_for :header_title do
-  Host List
+  Server List
 - content_for :header_subtitle do
-  You can manage your hosts in here
+  You can manage your servers in here
 - content_for :header_actions do
-  = link_to new_host_path, class: 'btn btn-primary' do
+  = link_to new_server_path, class: 'btn btn-primary' do
     %span.glyphicon.glyphicon-plus
-    New Host
+    New Server
 
 .row
-  - @hosts.each do |host|
+  - @servers.each do |server|
     .col-md-3
       .info-box
-        = link_to host_path(host) do
+        = link_to server_path(server) do
           %span.info-box-icon.bg-aqua
             %i.fa.fa-server
         .info-box-content
           .info-box-text
-            = link_to host.name, host_path(host)
+            = link_to server.name, server_path(server)
           .info-box-number
-            = host.addr
+            = server.addr
             %br
             %span.pull-right
               %i.fa.fa-rocket
-              = host.apps.count
+              = server.apps.count
               &nbsp;apps
 

@@ -1,5 +1,5 @@
 class PluginsController < ApplicationController
-  before_action :set_host
+  before_action :set_server
 
   def index
     @plugins = Plugin.all
@@ -7,15 +7,15 @@ class PluginsController < ApplicationController
 
   def create
     @plugin = Plugin.find {|p| p.slug == params[:slug] }.first
-    redirect_to host_plugin_path(host_id: @host.id), notice: "Plugin not found" if @plugin.nil?
+    redirect_to server_plugin_path(server_id: @server.id), notice: "Plugin not found" if @plugin.nil?
 
-    @host.dokku_cmd("plugin:install", [@plugin.install_cmd])
-    @host.plugins << @plugin.slug
-    @host.save
-    redirect_to host_plugins_path(host_id: @host.id),notice: "Plugin was installed"
+    @server.dokku_cmd("plugin:install", [@plugin.install_cmd])
+    @server.plugins << @plugin.slug
+    @server.save
+    redirect_to server_plugins_path(server_id: @server.id),notice: "Plugin was installed"
   end
 
-  def set_host
-    @host = Host.find(params[:host_id])
+  def set_server
+    @server = Server.find(params[:server_id])
   end
 end

@@ -1,6 +1,6 @@
 require 'net/ssh'
 
-class Host < ApplicationRecord
+class Server < ApplicationRecord
   has_many :apps
   has_many :plugin_instances
   has_many :ssh_keys
@@ -75,7 +75,7 @@ class Host < ApplicationRecord
             app = App.find_by name: app_name
           end
 
-          instance = PluginInstance.find_or_create_by(name: instance_name, app_id: app.id, host_id: self.id, type: plugin.class_name)
+          instance = PluginInstance.find_or_create_by(name: instance_name, app_id: app.id, server_id: self.id, type: plugin.class_name)
           instance
         end
       end

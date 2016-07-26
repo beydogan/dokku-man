@@ -1,8 +1,8 @@
 require "rails_helper"
 
-describe Host, type: :model do
+describe Server, type: :model do
   it "has a valid factory" do
-    h = create :host
+    h = create :server
     expect(h).to be_valid
   end
 end

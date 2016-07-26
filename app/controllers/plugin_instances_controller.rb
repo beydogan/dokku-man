@@ -1,5 +1,5 @@
 class PluginInstancesController < ApplicationController
-  before_action :set_host
+  before_action :set_server
 
   def new
     @plugin_instance = PluginInstance.new
@@ -7,10 +7,10 @@ class PluginInstancesController < ApplicationController
   end
 
   def create
-    @plugin_instance = @host.plugin_instances.new(plugin_instance_params)
+    @plugin_instance = @server.plugin_instances.new(plugin_instance_params)
 
     if @plugin_instance.save
-      redirect_to @plugin_instance.app || @host, notice: 'Instance was successfully created.'
+      redirect_to @plugin_instance.app || @server, notice: 'Instance was successfully created.'
     else
       @plugin_instance = @plugin_instance.becomes(PluginInstance)
       load_form_data
@@ -24,12 +24,12 @@ class PluginInstancesController < ApplicationController
     params.require(:plugin_instance).permit(:name, :type, :app_id)
   end
 
-  def set_host
-    @host = Host.find(params[:host_id])
+  def set_server
+    @server = Server.find(params[:server_id])
   end
 
   def load_form_data
-    @plugins = Plugin.all #TODO filter host plugins
-    @apps = @host.apps
+    @plugins = Plugin.all #TODO filter server plugins
+    @apps = @server.apps
   end
 end
