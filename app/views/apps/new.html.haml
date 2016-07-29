@@ -1,7 +1,7 @@
 - content_for :header_title do
   Create a new app
 - content_for :header_actions do
-  = link_to apps_path, class: 'btn btn-primary' do
+  = link_to server_apps_path(@server), class: 'btn btn-primary' do
     %span.fa.fa-arrow-left
     Back
 

@@ -1,6 +1,6 @@
 .box
   .box-body
-    = simple_form_for(@app) do |f|
+    = simple_form_for([@server, @app]) do |f|
       = f.error_notification
 
       .form-inputs

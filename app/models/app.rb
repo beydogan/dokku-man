@@ -51,4 +51,12 @@ class App < ApplicationRecord
     self.scale = get_scale_cmd
     self.save
   end
+
+  def deploy(branch)
+
+  end
+
+  def deploy_key
+    self.host.public_key
+  end
 end

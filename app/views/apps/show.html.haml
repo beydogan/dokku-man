@@ -1,17 +1,17 @@
 - content_for :header_title do
   Application: #{@app.name}
 - content_for :header_actions do
-  = link_to apps_path, class: 'btn btn-default' do
+  = link_to server_apps_path(@server), class: 'btn btn-default' do
     %span.fa.fa-arrow-left
     Back
-  = link_to sync_app_path(sync_method: "pull"), class: 'btn btn-success' do
+  = link_to sync_server_app_path(@server, @app, sync_method: "pull"), class: 'btn btn-success' do
     %span.fa.fa-arrow-down
     Sync(Pull)
-  = link_to sync_app_path(sync_method: "push"), class: 'btn btn-warning', data: {confirm: "It will owerrite everything on remote server. Are you sure?"} do
+  = link_to sync_server_app_path(@server, @app, sync_method: "push"), class: 'btn btn-warning', data: {confirm: "It will owerrite everything on remote server. Are you sure?"} do
     %span.fa.fa-arrow-up
     Sync(Push)
 
-  = link_to edit_app_path(@app), class: 'btn btn-primary' do
+  = link_to edit_server_app_path(@server, @app), class: 'btn btn-primary' do
     %span.fa.fa-pencil
     Edit
 
