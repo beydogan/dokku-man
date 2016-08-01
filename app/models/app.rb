@@ -52,29 +52,6 @@ class App < ApplicationRecord
     self.save
   end
 
-  def deploy(branch)
-    @sh = Session::Bash.new
-    o = execute_local_sh 'pwd'
-    tmp = o.rstrip + "/tmp"
-    execute_local_sh "cd '#{tmp}'"
-    dir = "changeme"
-    execute_local_sh "git clone #{git_url} #{dir}"
-    execute_local_sh "cd '#{dir}'"
-    execute_local_sh "git checkout '#{branch}'"
-    execute_local_sh "git remote add deploy dokku@#{server.addr}:#{name}"
-    execute_local_sh "git push deploy #{branch}:master"
-    execute_local_sh "rm -rf ./#{dir}"
-  end
-
-  def execute_local_sh(cmd)
-    output = ""
-    @sh.execute cmd do |o, e|
-      puts o if o
-      output = output + o if o
-    end
-    return output
-  end
-
   def deploy_key
     self.host.public_key
   end

@@ -20,4 +20,28 @@ module AppCommands
     scale_str = scale.collect {|k,v| "#{k}=#{v}"}.join(" ")
     result = self.server.dokku_cmd("ps:scale #{self.name} #{scale_str}")
   end
+
+  def deploy(branch)
+    @sh = Session::Bash.new
+    o = execute_local_sh 'pwd'
+    tmp = o.rstrip + "/tmp"
+    execute_local_sh "cd '#{tmp}'"
+    dir = "changeme"
+    execute_local_sh "git clone #{git_url} #{dir}"
+    execute_local_sh "cd '#{dir}'"
+    execute_local_sh "git checkout '#{branch}'"
+    execute_local_sh "git remote add deploy dokku@#{server.addr}:#{name}"
+    execute_local_sh "git push deploy #{branch}:master"
+    execute_local_sh "rm -rf ./#{dir}"
+  end
+
+  def execute_local_sh(cmd)
+    output = ""
+    @sh.execute cmd do |o, e|
+      puts o if o
+      output = output + o if o
+      puts e if e
+    end
+    return output
+  end
 end
