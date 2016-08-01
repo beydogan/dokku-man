@@ -39,4 +39,4 @@ gem "interactor-rails", "~> 2.0"
 gem "font-awesome-rails"
 # Authentication
 gem "devise"
-
+gem "session"
