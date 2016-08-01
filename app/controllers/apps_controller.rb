@@ -85,7 +85,7 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :url, app_configs_attributes: [:id, :name, :value, :_destroy]
+      params.require(:app).permit(:name, :url, :git_url, app_configs_attributes: [:id, :name, :value, :_destroy]
       )
     end
 end

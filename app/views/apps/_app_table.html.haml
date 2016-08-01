@@ -16,5 +16,5 @@
           %td= app.url
           %td= app.server
           %td= link_to 'Show', [app.server, app]
-          %td= link_to 'Edit', edit_server_app_path([app.server, app])
+          %td= link_to 'Edit', edit_server_app_path(app.server, app)
           %td= link_to 'Destroy', [app.server, app], data: { confirm: 'Are you sure?' }, method: :delete

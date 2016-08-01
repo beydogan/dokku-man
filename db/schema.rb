@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160724095724) do
+ActiveRecord::Schema.define(version: 20160801191932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,20 @@ ActiveRecord::Schema.define(version: 20160724095724) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.hstore   "scale",      default: {}, null: false
+    t.string   "git_url"
     t.index ["server_id"], name: "index_apps_on_server_id", using: :btree
+  end
+
+  create_table "plugin_instances", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "app_id"
+    t.integer  "server_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_plugin_instances_on_app_id", using: :btree
+    t.index ["server_id"], name: "index_plugin_instances_on_server_id", using: :btree
   end
 
   create_table "servers", force: :cascade do |t|
@@ -47,18 +60,6 @@ ActiveRecord::Schema.define(version: 20160724095724) do
     t.datetime "last_synced_at"
     t.integer  "user_id"
     t.index ["user_id"], name: "index_servers_on_user_id", using: :btree
-  end
-
-  create_table "plugin_instances", force: :cascade do |t|
-    t.string   "name"
-    t.string   "type"
-    t.integer  "app_id"
-    t.integer  "server_id"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["app_id"], name: "index_plugin_instances_on_app_id", using: :btree
-    t.index ["server_id"], name: "index_plugin_instances_on_server_id", using: :btree
   end
 
   create_table "ssh_keys", force: :cascade do |t|
@@ -90,8 +91,8 @@ ActiveRecord::Schema.define(version: 20160724095724) do
 
   add_foreign_key "app_configs", "apps"
   add_foreign_key "apps", "servers"
-  add_foreign_key "servers", "users"
   add_foreign_key "plugin_instances", "apps"
   add_foreign_key "plugin_instances", "servers"
+  add_foreign_key "servers", "users"
   add_foreign_key "ssh_keys", "servers"
 end
