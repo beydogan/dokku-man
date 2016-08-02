@@ -27,20 +27,21 @@ module AppCommands
     tmp = o.rstrip + "/tmp"
     execute_local_sh "cd '#{tmp}'"
     dir = "changeme"
+    execute_local_sh "rm -rf ./#{dir}"
     execute_local_sh "git clone #{git_url} #{dir}"
     execute_local_sh "cd '#{dir}'"
     execute_local_sh "git checkout '#{branch}'"
     execute_local_sh "git remote add deploy dokku@#{server.addr}:#{name}"
-    execute_local_sh "git push deploy #{branch}:master"
+    execute_local_sh "git push deploy #{branch}:master", true
     execute_local_sh "rm -rf ./#{dir}"
   end
 
-  def execute_local_sh(cmd)
+  def execute_local_sh(cmd, log = false)
     output = ""
     @sh.execute cmd do |o, e|
-      puts o if o
+      AppLoggerChannel.broadcast_to "app_1", {action: "log", message: o} if o && log
+      AppLoggerChannel.broadcast_to "app_1", {action: "log", message: e} if e && log
       output = output + o if o
-      puts e if e
     end
     return output
   end

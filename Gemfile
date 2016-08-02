@@ -40,3 +40,5 @@ gem "font-awesome-rails"
 # Authentication
 gem "devise"
 gem "session"
+gem "gon"
+gem 'redis-rails'

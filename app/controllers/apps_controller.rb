@@ -77,6 +77,7 @@ class AppsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_app
       @app = App.find(params[:id])
+      gon.app_id = @app.id
     end
 
     def load_form_data

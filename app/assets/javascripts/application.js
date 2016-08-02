@@ -5,4 +5,4 @@
 //= require cocoon
 //= require adminlte
 //= require turbolinks
-//= require_tree .
+//= require cable
