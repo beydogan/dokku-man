@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :sync]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :sync, :run_cmd, :deploy]
   before_action :set_server
 
   def sync
@@ -12,6 +12,24 @@ class AppsController < ApplicationController
       redirect_to [@server, @app], notice: "An error occured. See logs."
     end
   end
+
+  def run_cmd
+    available_commands = ["pull_branches"]
+
+    if available_commands.include? params[:cmd]
+      @app.send(params[:cmd])
+      redirect_to [@server, @app], notice: "Command was run successfully"
+    else
+      redirect_to [@server, @app], flash: {error: "Command not available"}
+    end
+  end
+
+
+  def run_cmd
+    @app.deploy(params[:branch] || "master")
+    redirect_to [@server, @app], notice: "Deployment started"
+  end
+
 
   # GET /apps
   # GET /apps.json

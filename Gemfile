@@ -42,3 +42,4 @@ gem "devise"
 gem "session"
 gem "gon"
 gem 'redis-rails'
+gem 'sidekiq'

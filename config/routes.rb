@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :apps do
       member do
         get :sync
+        get :run_cmd
+        get :deploy
       end
     end
   end

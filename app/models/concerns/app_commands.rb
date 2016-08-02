@@ -34,15 +34,31 @@ module AppCommands
     execute_local_sh "git remote add deploy dokku@#{server.addr}:#{name}"
     execute_local_sh "git push deploy #{branch}:master", true
     execute_local_sh "rm -rf ./#{dir}"
+    @sh.close
   end
 
-  def execute_local_sh(cmd, log = false)
+  def execute_local_sh(cmd, socket_log = false)
     output = ""
     @sh.execute cmd do |o, e|
-      AppLoggerChannel.broadcast_to "app_1", {action: "log", message: o} if o && log
-      AppLoggerChannel.broadcast_to "app_1", {action: "log", message: e} if e && log
+      AppLoggerChannel.broadcast_to "app_1", {action: "log", message: o} if o && socket_log
+      AppLoggerChannel.broadcast_to "app_1", {action: "log", message: e} if e && socket_log
       output = output + o if o
     end
     return output
+  end
+
+  def pull_branches
+    @sh = Session::Bash.new
+    o = execute_local_sh 'pwd'
+    tmp = o.rstrip + "/tmp"
+    execute_local_sh "cd '#{tmp}'"
+    dir = "changeme"
+    execute_local_sh "rm -rf ./#{dir}"
+    execute_local_sh "git clone #{git_url} #{dir}"
+    execute_local_sh "git fetch --all"
+    branch_output = execute_local_sh "git branch -r"
+    branches = branch_output.split("\n").delete_if { |x| !x.include?("origin") || x.include?("HEAD") }.map(&:strip)
+    self.update branches: branches
+    @sh.close
   end
 end
