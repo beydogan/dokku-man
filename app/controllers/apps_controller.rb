@@ -5,29 +5,26 @@ class AppsController < ApplicationController
   def sync
     method = (params[:sync_method] == "push") ? App::PUSH : App::PULL
 
-    begin
-      @app.sync(method)
-      redirect_to [@server, @app], notice: "App was successfully synced."
-    rescue
-      redirect_to [@server, @app], notice: "An error occured. See logs."
-    end
+    AppCommandRunnerJob.perform_later(@app.id, "sync", true, method)
+    redirect_to [@server, @app], notice: "App sync was started, you will be notified once its completed."
   end
 
   def run_cmd
     available_commands = ["pull_branches"]
 
     if available_commands.include? params[:cmd]
-      @app.send(params[:cmd])
-      redirect_to [@server, @app], notice: "Command was run successfully"
+      AppCommandRunnerJob.perform_later(@app.id, params[:cmd], true)
+      redirect_to [@server, @app], notice: "Command was run successfully, you will be notified once its completed."
     else
       redirect_to [@server, @app], flash: {error: "Command not available"}
     end
   end
 
 
-  def run_cmd
-    @app.deploy(params[:branch] || "master")
-    redirect_to [@server, @app], notice: "Deployment started"
+  def deploy
+    branch = params[:_app][:branch] || "master"
+    AppCommandRunnerJob.perform_later(@app.id, "deploy", true, branch)
+    redirect_to [@server, @app], notice: "Deployment started, you can watch logs"
   end
 
 

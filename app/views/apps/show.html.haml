@@ -23,6 +23,10 @@
         = link_to run_cmd_server_app_path(@server, @app, cmd: "pull_branches") do
           %span.fa.fa-code-fork
           Sync Git Branches
+      %li
+        = link_to deploy_server_app_path(@server, @app,) do
+          %span.fa.fa-code-fork
+          Deploy
 
 
 
@@ -58,6 +62,11 @@
           - @app.scale.each do |k,v|
             %dt.text-left= k
             %dd= v
+        %h3 Deploy
+        .col-md-4
+          = simple_form_for :_app, url: deploy_server_app_path(@server, @app), method: "get" do |f|
+            = f.input :branch, as: :select, collection: @app.branches
+            = f.button :submit, "Deploy"
 
 
     %h2 Environment Variables
