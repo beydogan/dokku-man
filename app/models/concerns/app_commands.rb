@@ -21,7 +21,6 @@ module AppCommands
     result = self.server.dokku_cmd("ps:scale #{self.name} #{scale_str}")
   end
 
-
   def execute(cmd, args = [])
     args = args.unshift(self.name)
     self.server.dokku_cmd("apps:#{cmd}", args)
@@ -65,11 +64,12 @@ module AppCommands
   def deploy(branch)
     @sh = Session::Bash.new
     o = execute_local_sh 'pwd'
-    tmp = o.rstrip + "/tmp"
+    tmp = "/tmp"
     execute_local_sh "cd '#{tmp}'"
     dir = "changeme"
     execute_local_sh "rm -rf ./#{dir}"
-    execute_local_sh "git clone -b #{branch} #{git_url} #{dir}", true
+    execute_local_sh "echo #{private_key} > ./key"
+    execute_local_sh "GIT_SSH_COMMAND='ssh -i ./key' git clone -b #{branch} #{git_url} #{dir}", true
     execute_local_sh "cd '#{dir}'"
     execute_local_sh "git remote add deploy dokku@#{server.addr}:#{name}"
     execute_local_sh "git push deploy #{branch}:master", true
@@ -83,6 +83,8 @@ module AppCommands
       AppLoggerChannel.broadcast_to "app_#{id}", {action: "log", message: o} if o# && socket_log
       AppLoggerChannel.broadcast_to "app_#{id}", {action: "log", message: e} if e# && socket_log
       output = output + o if o
+      puts o
+      puts e
     end
     return output
   end
@@ -90,11 +92,12 @@ module AppCommands
   def pull_branches
     @sh = Session::Bash.new
     o = execute_local_sh 'pwd'
-    tmp = o.rstrip + "/tmp"
+    tmp = "/tmp"
     execute_local_sh "cd '#{tmp}'"
     dir = "changeme"
     execute_local_sh "rm -rf ./#{dir}"
     execute_local_sh "git clone #{git_url} #{dir}"
+    execute_local_sh "cd ./#{dir}"
     execute_local_sh "git fetch --all"
     branch_output = execute_local_sh "git branch -r"
     branches = branch_output.split("\n").delete_if { |x| !x.include?("origin") || x.include?("HEAD") }.map(&:strip).map {|x| x.gsub("origin/", "")}

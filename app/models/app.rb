@@ -1,5 +1,6 @@
 class App < ApplicationRecord
   include AppCommands
+  include SSHKeyGenerator
 
   belongs_to :server
   has_one :user, through: :server
@@ -13,6 +14,7 @@ class App < ApplicationRecord
 
   after_create :create
   after_save -> { sync(PUSH) }
+  after_initialize -> { self.generate_keys = "1" unless self.persisted? }
 
   def deploy_key
     self.host.public_key

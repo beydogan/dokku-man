@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802062837) do
+ActiveRecord::Schema.define(version: 20160804144126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(version: 20160802062837) do
     t.string   "name"
     t.string   "url"
     t.integer  "server_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.hstore   "scale",      default: {}, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.hstore   "scale",       default: {}, null: false
     t.string   "git_url"
-    t.string   "branches",                             array: true
+    t.string   "branches",                              array: true
+    t.text     "private_key"
+    t.text     "public_key"
     t.index ["server_id"], name: "index_apps_on_server_id", using: :btree
   end
 
