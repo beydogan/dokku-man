@@ -10,7 +10,9 @@
   = link_to edit_server_path(@server), class: 'btn btn-primary' do
     %span.fa.fa-pencil
     Edit
-
+  = link_to new_server_app_path(@server), class: 'btn btn-success' do
+    %span.fa.fa-plus
+    Create App
 .box
   .box-body
     %dl.dl-horizontal

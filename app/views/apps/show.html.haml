@@ -1,17 +1,36 @@
 - content_for :header_title do
   Application: #{@app.name}
 - content_for :header_actions do
-  = link_to apps_path, class: 'btn btn-default' do
+
+  = link_to server_apps_path(@server), class: 'btn btn-default' do
     %span.fa.fa-arrow-left
     Back
-  = link_to sync_app_path(sync_method: "pull"), class: 'btn btn-success' do
-    %span.fa.fa-arrow-down
-    Sync(Pull)
-  = link_to sync_app_path(sync_method: "push"), class: 'btn btn-warning', data: {confirm: "It will owerrite everything on remote server. Are you sure?"} do
-    %span.fa.fa-arrow-up
-    Sync(Push)
+  .btn-group
+    %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      Commands
+      %span.caret
+    %ul.dropdown-menu
+      %li
+        = link_to sync_server_app_path(@server, @app, sync_method: "pull")  do
+          %span.fa.fa-arrow-down
+          Sync(Pull)
+      %li
+        = link_to sync_server_app_path(@server, @app, sync_method: "push"), data: {confirm: "It will owerrite everything on remote server. Are you sure?"} do
+          %span.fa.fa-arrow-up
+          Sync(Push)
+      %li.divider{:role => "separator"}
+      %li
+        = link_to run_cmd_server_app_path(@server, @app, cmd: "pull_branches") do
+          %span.fa.fa-code-fork
+          Sync Git Branches
+      %li
+        = link_to deploy_server_app_path(@server, @app,) do
+          %span.fa.fa-code-fork
+          Deploy
 
-  = link_to edit_app_path(@app), class: 'btn btn-primary' do
+
+
+  = link_to edit_server_app_path(@server, @app), class: 'btn btn-primary' do
     %span.fa.fa-pencil
     Edit
 
@@ -43,6 +62,11 @@
           - @app.scale.each do |k,v|
             %dt.text-left= k
             %dd= v
+        %h3 Deploy
+        .col-md-4
+          = simple_form_for :_app, url: deploy_server_app_path(@server, @app), method: "get" do |f|
+            = f.input :branch, as: :select, collection: @app.branches
+            = f.button :submit, "Deploy"
 
 
     %h2 Environment Variables
@@ -56,3 +80,8 @@
     = link_to new_server_plugin_instance_path(@app.server_id), class: 'btn btn-primary' do
       %span.glyphicon.glyphicon-plus
       Add New
+
+
+.box
+  .box-body.bg-black-active.log-box
+    Logs
