@@ -81,10 +81,12 @@ class Server < ApplicationRecord
   end
 
   def sync!
+    Notifier.call user: self.user, action: :server_sync_started
     self.sync_apps
     self.sync_plugins
     self.sync_instances
     self.update(last_synced_at: DateTime.now)
+    Notifier.call user: self.user, action: :server_sync_completed
   end
 
   def to_s

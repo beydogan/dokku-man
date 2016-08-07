@@ -12,6 +12,13 @@ App.notification = App.cable.subscriptions.create("NotificationChannel", {
     },
 
     handle_notification: function(data){
-        notify(data.message, data.type)
+        if(data.reload){
+          Turbolinks.visit(window.location, { action: "advance" })
+          $(document).one('turbolinks:load', function(){
+            notify(data.message, data.type)
+          })
+        }else{
+          notify(data.message, data.type)
+        }
     }
 });

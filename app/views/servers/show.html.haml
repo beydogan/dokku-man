@@ -4,7 +4,7 @@
   = link_to servers_path, class: 'btn btn-primary' do
     %span.fa.fa-arrow-left
     Back
-  = link_to sync_server_path(@server), class: 'btn btn-primary' do
+  = link_to sync_server_path(@server), remote: true, class: 'btn btn-primary' do
     %span.glyphicon.glyphicon-refresh
     Sync Server
   = link_to edit_server_path(@server), class: 'btn btn-primary' do
