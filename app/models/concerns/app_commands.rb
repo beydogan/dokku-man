@@ -80,8 +80,8 @@ module AppCommands
   def execute_local_sh(cmd, socket_log = false)
     output = ""
     @sh.execute cmd do |o, e|
-      AppLoggerChannel.broadcast_to "app_#{id}", {action: "log", message: o} if o# && socket_log
-      AppLoggerChannel.broadcast_to "app_#{id}", {action: "log", message: e} if e# && socket_log
+      AppLoggerChannel.broadcast_to "app_#{id}", {action: "log", message: o.gsub("[1G", "").gsub("[K", "")} if o# && socket_log
+      AppLoggerChannel.broadcast_to "app_#{id}", {action: "log", message: e.gsub("[1G", "").gsub("[K", "")} if e# && socket_log
       output = output + o if o
       puts o
       puts e

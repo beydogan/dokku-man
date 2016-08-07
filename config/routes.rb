@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'plugins/index'
-
-  get 'plugins/create'
-
   resources :app_configs
 
   resources :servers do
@@ -23,5 +19,7 @@ Rails.application.routes.draw do
   end
   root to: 'servers#index'
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server => '/cable'
 end

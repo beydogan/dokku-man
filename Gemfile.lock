@@ -1,3 +1,20 @@
+GIT
+  remote: git://github.com/sinatra/rack-protection.git
+  revision: 7e723a74763bb83989d1249cdceb9cceb2ee6f01
+  specs:
+    rack-protection (2.0.0)
+      rack
+
+GIT
+  remote: git://github.com/sinatra/sinatra.git
+  revision: 98990ef31f42ed00b8a7c0dae1170fe24e182612
+  specs:
+    sinatra (2.0.0.pre.alpha)
+      mustermann (~> 0.4)
+      rack (~> 2.0)
+      rack-protection (~> 2.0)
+      tilt (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -129,6 +146,8 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    mustermann (0.4.0)
+      tool (~> 0.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
@@ -251,6 +270,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    tool (0.2.3)
     turbolinks (5.0.0)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -295,6 +315,7 @@ DEPENDENCIES
   pg
   poltergeist
   puma (~> 3.0)
+  rack-protection!
   rails (~> 5.0.0)
   rails-assets-pnotify!
   rails_12factor
@@ -305,6 +326,7 @@ DEPENDENCIES
   session
   sidekiq
   simple_form
+  sinatra!
   sshkey
   sshkit
   turbolinks (~> 5)
