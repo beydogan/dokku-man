@@ -12,10 +12,6 @@ App.notification = App.cable.subscriptions.create("NotificationChannel", {
     },
 
     handle_notification: function(data){
-        if(data.action == "sync") {
-            console.log("App sync completed");
-        } else {
-            console.log(data)
-        }
+        notify(data.message, data.type)
     }
 });

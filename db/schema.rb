@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804144126) do
+ActiveRecord::Schema.define(version: 20160807073400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160804144126) do
     t.string   "branches",                              array: true
     t.text     "private_key"
     t.text     "public_key"
+    t.text     "log"
     t.index ["server_id"], name: "index_apps_on_server_id", using: :btree
   end
 
