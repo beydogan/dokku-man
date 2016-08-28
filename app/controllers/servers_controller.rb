@@ -64,7 +64,7 @@ class ServersController < ApplicationController
 
   def sync
     ServerCommandRunnerJob.perform_later(@server.id, "sync!")
-    redirect_to server_url(@server), notice: 'Server was successfully synced.'
+    render json: {status: :ok}
   end
 
   private

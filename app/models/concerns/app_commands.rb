@@ -69,10 +69,11 @@ module AppCommands
     dir = "changeme"
     execute_local_sh "rm -rf ./#{dir}"
     execute_local_sh "echo #{private_key} > ./key"
+    execute_local_sh "chmod 600 ./key"
     execute_local_sh "GIT_SSH_COMMAND='ssh -i ./key' git clone -b #{branch} #{git_url} #{dir}", true
     execute_local_sh "cd '#{dir}'"
     execute_local_sh "git remote add deploy dokku@#{server.addr}:#{name}"
-    execute_local_sh "git push deploy #{branch}:master", true
+    execute_local_sh "GIT_SSH_COMMAND='ssh -i ../key' git push deploy #{branch}:master", true
     execute_local_sh "rm -rf ./#{dir}"
     @sh.close
   end

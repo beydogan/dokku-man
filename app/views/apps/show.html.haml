@@ -64,7 +64,7 @@
             %dd= v
         %h3 Deploy
         .col-md-4
-          = simple_form_for :_app, url: deploy_server_app_path(@server, @app), method: "get" do |f|
+          = simple_form_for :_app, url: deploy_server_app_path(@server, @app), method: "get", remote: true do |f|
             = f.input :branch, as: :select, collection: @app.branches
             = f.button :submit, "Deploy"
 
