@@ -3,18 +3,14 @@
     %thead
       %tr
         %th Name
-        %th Url
-        %th Server
-        %th
-        %th
-        %th
+        %th{style: "width: 5%"}
+        %th{style: "width: 5%"}
+        %th{style: "width: 5%"}
 
     %tbody
       - apps.each do |app|
         %tr
           %td= app.name
-          %td= app.url
-          %td= app.server
           %td= link_to 'Show', [app.server, app]
           %td= link_to 'Edit', edit_server_app_path(app.server, app)
           %td= link_to 'Destroy', [app.server, app], data: { confirm: 'Are you sure?' }, method: :delete

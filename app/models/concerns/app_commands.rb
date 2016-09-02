@@ -68,8 +68,7 @@ module AppCommands
     execute_local_sh "cd '#{tmp}'"
     dir = "changeme"
     execute_local_sh "rm -rf ./#{dir}"
-    execute_local_sh "echo #{private_key} > ./key"
-    execute_local_sh "chmod 600 ./key"
+    create_key_file!
     execute_local_sh "GIT_SSH_COMMAND='ssh -i ./key' git clone -b #{branch} #{git_url} #{dir}", true
     execute_local_sh "cd '#{dir}'"
     execute_local_sh "git remote add deploy dokku@#{server.addr}:#{name}"
@@ -92,17 +91,23 @@ module AppCommands
 
   def pull_branches
     @sh = Session::Bash.new
-    o = execute_local_sh 'pwd'
     tmp = "/tmp"
-    execute_local_sh "cd '#{tmp}'"
     dir = "changeme"
+    execute_local_sh "cd '#{tmp}'"
     execute_local_sh "rm -rf ./#{dir}"
-    execute_local_sh "git clone #{git_url} #{dir}"
+    create_key_file!
+    execute_local_sh "GIT_SSH_COMMAND='ssh -i ./key' git clone #{git_url} #{dir}"
     execute_local_sh "cd ./#{dir}"
-    execute_local_sh "git fetch --all"
+    execute_local_sh "GIT_SSH_COMMAND='ssh -i ../key' git fetch --all"
     branch_output = execute_local_sh "git branch -r"
     branches = branch_output.split("\n").delete_if { |x| !x.include?("origin") || x.include?("HEAD") }.map(&:strip).map {|x| x.gsub("origin/", "")}
     self.update branches: branches
+    execute_local_sh "rm ../key"
     @sh.close
+  end
+
+  def create_key_file!
+    execute_local_sh "echo '#{self.private_key}' > ./key"
+    execute_local_sh "chmod 600 ./key"
   end
 end
