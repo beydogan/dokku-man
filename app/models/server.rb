@@ -1,4 +1,3 @@
-require 'net/ssh'
 
 class Server < ApplicationRecord
   include SSHKeyGenerator
@@ -6,8 +5,6 @@ class Server < ApplicationRecord
   has_many :plugin_instances
   has_many :ssh_keys
   belongs_to :user
-
-  before_save :parse_private_key
 
   def execute(cmd)
     Net::SSH.start(
@@ -91,10 +88,5 @@ class Server < ApplicationRecord
 
   def to_s
     self.name
-  end
-
-
-  def parse_private_key
-    self.private_key = self.private_key.gsub("\r\n          ", "\n") #TODO find better way
   end
 end

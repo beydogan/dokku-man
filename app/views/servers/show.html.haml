@@ -20,8 +20,8 @@
       %dd= @server.name
       %dt Server Address:
       %dd= @server.addr
-      %dt Public key:
-      %dd= @server.public_key
+      %dt API Endpoint:
+      %dd= @server.endpoint
 
     %h2 Application List
     = render 'apps/app_table', apps: @server.apps
