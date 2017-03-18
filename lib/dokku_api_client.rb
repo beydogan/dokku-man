@@ -1,5 +1,5 @@
 class DokkuAPIClient
-  valid_commands = ["list_commands", "create_command", "get_command", "retry_command"].freeze
+  valid_actions = ["list_commands", "create_command", "get_command", "retry_command"].freeze
 
   def initialize(endpoint, api_key, api_secret)
     @endpoint = endpoint
@@ -30,7 +30,7 @@ class DokkuAPIClient
   private
 
     def validate_command!(command)
-      raise "InvalidCommand" unless valid_commands.includes? command
+      raise "InvalidAction" unless valid_actions.includes? command
     end
 
     def client

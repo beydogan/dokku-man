@@ -1,9 +1,11 @@
 
 class Server < ApplicationRecord
   include SSHKeyGenerator
+  include DokkuAPI
   has_many :apps
   has_many :plugin_instances
   has_many :ssh_keys
+  has_many :server_commands
   belongs_to :user
 
   def execute(cmd)
