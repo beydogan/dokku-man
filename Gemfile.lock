@@ -78,6 +78,7 @@ GEM
       xpath (~> 2.0)
     cliver (0.3.2)
     cocoon (1.2.9)
+    command (1.0.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
     debug_inspector (0.0.2)
@@ -315,6 +316,7 @@ DEPENDENCIES
   byebug
   capybara
   cocoon
+  command
   devise
   factory_girl_rails
   ffaker
