@@ -4,22 +4,24 @@
   = link_to servers_path, class: 'btn btn-primary' do
     %span.fa.fa-arrow-left
     Back
-  = link_to sync_server_path(@server), class: 'btn btn-primary' do
+  = link_to sync_server_path(@server), remote: true, class: 'btn btn-primary' do
     %span.glyphicon.glyphicon-refresh
     Sync Server
   = link_to edit_server_path(@server), class: 'btn btn-primary' do
     %span.fa.fa-pencil
     Edit
-
+  = link_to new_server_app_path(@server), class: 'btn btn-success' do
+    %span.fa.fa-plus
+    Create App
 .box
   .box-body
     %dl.dl-horizontal
       %dt Name:
       %dd= @server.name
-      %dt Addr:
+      %dt Server Address:
       %dd= @server.addr
-      %dt Public key:
-      %dd= @server.public_key
+      %dt API Endpoint:
+      %dd= @server.endpoint
 
     %h2 Application List
     = render 'apps/app_table', apps: @server.apps

@@ -20,4 +20,5 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  notifier:
+    plugin_install_started: "Plugin installation has been started"

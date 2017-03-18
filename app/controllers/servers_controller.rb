@@ -63,8 +63,8 @@ class ServersController < ApplicationController
   end
 
   def sync
-    @server.sync!
-    redirect_to server_url(@server), notice: 'Server was successfully synced.'
+    ServerCommandRunnerJob.perform_later(@server.id, "sync!")
+    render json: {status: :ok}
   end
 
   private
@@ -74,6 +74,6 @@ class ServersController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def server_params
-      params.require(:server).permit(:name, :addr, :username, :private_key, :public_key, :generate_keys)
+      params.require(:server).permit(:name, :addr, :endpoint, :api_key, :api_secret)
     end
 end

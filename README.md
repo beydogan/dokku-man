@@ -1,7 +1,7 @@
-=======
+# UPDATE: I'm currently redesigning the app by writing an API on top of Dokku Daemon. Dokku Man will interact with the HTTP API instead of connecting it through SSH. No ETA but hang tight! https://github.com/beydogan/dokku-api
+
 # dokku-man [![Status](https://img.shields.io/badge/stability-experimental-green.svg?style=flat-square)]()
 Web interface to manage your dokku servers. Its **work in progress**
-
 
 # Screenshots
 

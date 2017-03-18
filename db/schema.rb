@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160724095724) do
+ActiveRecord::Schema.define(version: 20170316105531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,14 @@ ActiveRecord::Schema.define(version: 20160724095724) do
     t.string   "name"
     t.string   "url"
     t.integer  "server_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.hstore   "scale",      default: {}, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.hstore   "scale",       default: {}, null: false
+    t.string   "git_url"
+    t.string   "branches",                              array: true
+    t.text     "private_key"
+    t.text     "public_key"
+    t.text     "log"
     t.index ["server_id"], name: "index_apps_on_server_id", using: :btree
   end
 
@@ -50,14 +55,14 @@ ActiveRecord::Schema.define(version: 20160724095724) do
   create_table "servers", force: :cascade do |t|
     t.string   "name"
     t.string   "addr"
-    t.text     "private_key"
-    t.text     "public_key"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "username"
     t.string   "plugins",        default: [],              array: true
     t.datetime "last_synced_at"
     t.integer  "user_id"
+    t.string   "endpoint"
+    t.string   "api_key"
+    t.string   "api_secret"
     t.index ["user_id"], name: "index_servers_on_user_id", using: :btree
   end
 

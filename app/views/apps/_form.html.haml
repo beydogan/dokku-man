@@ -1,10 +1,11 @@
 .box
   .box-body
-    = simple_form_for(@app) do |f|
+    = simple_form_for([@server, @app]) do |f|
       = f.error_notification
 
       .form-inputs
         = f.input :name
+        = f.input :git_url
 
       #app-configs
         %h2 Environment Variables

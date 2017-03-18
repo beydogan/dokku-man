@@ -8,6 +8,9 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
+  host: 172.17.0.2
+  port: 5432
+  username: postgres
 
 development:
   <<: *default

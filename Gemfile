@@ -39,4 +39,12 @@ gem "interactor-rails", "~> 2.0"
 gem "font-awesome-rails"
 # Authentication
 gem "devise"
-gem "command"
+gem "session"
+gem "gon"
+gem 'redis-rails'
+gem 'sidekiq'
+gem 'rack-protection', github: 'sinatra/rack-protection'
+gem 'sinatra', github: "sinatra/sinatra", require: false
+gem 'http'
+#Assets
+gem 'rails-assets-pnotify', source: 'https://rails-assets.org'
