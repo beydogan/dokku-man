@@ -6,11 +6,25 @@ class Notifier
   ]
 
   def call
-    user = context.user
+    server = context.server if context.server.present?
+    user = context.user || server.user
     action = context.action
-    vars = context.vars || {}
+    i18n_vars = context.i18n_vars || {}
+    content_replace = context.content_replace
+    content_replace_target = context.content_replace_target
+    content_replace_payload = context.content_replace_payload
 
-    message = I18n.t("notifier.#{action}", vars)
-    NotifierJob.perform_later(user.id, {message: message, type: "information", reload: @@reloads.include?(action)})
+    message = I18n.t("notifier.#{action}", i18n_vars)
+
+    payload = {
+        message: message,
+        type: "information",
+        reload: @@reloads.include?(action),
+        content_replace: content_replace.present?,
+        content_replace_target: content_replace_target,
+        content_replace_payload: content_replace_payload
+    }
+
+    NotifierJob.perform_later(user.id, payload)
   end
 end

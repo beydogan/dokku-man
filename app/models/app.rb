@@ -12,10 +12,6 @@ class App < ApplicationRecord
 
   validates :name, uniqueness: {scope: :server}
 
-  after_create :create
-  after_save -> { sync(PUSH) }
-  after_initialize -> { self.generate_keys = "1" unless self.persisted? }
-
   def deploy_key
     self.host.public_key
   end

@@ -4,18 +4,11 @@
       %tr
         %th Name
         %th Type
+        %th Status
         - if defined? server_scope
           %th Linked App
         %th
 
     %tbody
       - instances.each do |instance|
-        %tr
-          %td= instance.name
-          %td= instance.type
-          - if defined? server_scope
-            %td
-              = link_to instance.app.name, [instance.app.server, instance.app] if instance.app
-            %td= link_to 'Destroy', server_plugin_instance_path(server_id: @server.id, id: instance.id), data: { confirm: 'Are you sure?' }, method: :delete
-          - else
-            %td= link_to 'Destroy', server_plugin_instance_path(server_id: @app.server_id, id: instance.id), data: { confirm: 'Are you sure?' }, method: :delete
+        = render "plugin_instances/plugin_instance_table_row", instance: instance, app: @app, server: @server, server_scope: defined?(server_scope)

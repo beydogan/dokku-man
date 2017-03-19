@@ -10,7 +10,8 @@ class PluginInstancesController < ApplicationController
     @plugin_instance = @server.plugin_instances.new(plugin_instance_params)
 
     if @plugin_instance.save
-      redirect_to @plugin_instance.app || @server, notice: 'Instance was successfully created.'
+      @plugin_instance.enqueue!
+      redirect_to [@server, @plugin_instance.app] || @server, notice: 'Instance was successfully created.'
     else
       @plugin_instance = @plugin_instance.becomes(PluginInstance)
       load_form_data

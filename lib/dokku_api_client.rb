@@ -19,8 +19,8 @@ class DokkuAPIClient
     client.get("#{@endpoint}/commands/#{token}")
   end
 
-  def create_command(command)
-    client.post("#{@endpoint}/commands", form: {cmd: command})
+  def create_command(command, sync = false)
+    client.post("#{@endpoint}/commands", form: {cmd: command, sync: sync})
   end
 
   def retry_command(token)

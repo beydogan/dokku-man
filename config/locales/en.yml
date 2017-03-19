@@ -22,3 +22,5 @@
 en:
   notifier:
     plugin_install_started: "Plugin installation has been started"
+    plugin_instance_created: "%{type} named %{name} has been created"
+    plugin_instance_linked: "%{type} named %{name} has been to %{app}"

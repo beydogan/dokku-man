@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317114701) do
+ActiveRecord::Schema.define(version: 20170319181812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20170317114701) do
     t.string   "type"
     t.integer  "app_id"
     t.integer  "server_id"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "status",     default: 0
     t.index ["app_id"], name: "index_plugin_instances_on_app_id", using: :btree
     t.index ["server_id"], name: "index_plugin_instances_on_server_id", using: :btree
   end
@@ -58,9 +58,11 @@ ActiveRecord::Schema.define(version: 20170317114701) do
     t.string   "token"
     t.datetime "ran_at"
     t.text     "result"
-    t.integer  "status",     default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "status",          default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "next_command_id"
+    t.index ["next_command_id"], name: "index_server_commands_on_next_command_id", using: :btree
     t.index ["server_id"], name: "index_server_commands_on_server_id", using: :btree
   end
 

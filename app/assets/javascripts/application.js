@@ -7,6 +7,7 @@
 //= require turbolinks
 //= require cable
 //= require jquery.noty.js
+//= require jquery-ui/effects/effect-highlight
 
 
 

@@ -48,3 +48,5 @@ gem 'sinatra', github: "sinatra/sinatra", require: false
 gem 'http'
 #Assets
 gem 'rails-assets-pnotify', source: 'https://rails-assets.org'
+gem 'render_anywhere'
+gem 'jquery-ui-rails'

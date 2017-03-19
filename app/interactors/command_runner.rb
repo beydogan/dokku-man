@@ -4,7 +4,6 @@ class CommandRunner
   def call
     server = Server.find(context.server_id)
     command = context.command
-    args = context.args
 
     begin
       api_result = server.api.run("create_command", command)
@@ -12,7 +11,7 @@ class CommandRunner
       sc = ServerCommand.create!(command: command, token: api_result["token"], server: server)
       context.server_command = sc
     rescue Exception => e
-      puts e.message
+      context.message = e.message
     end
   end
 end
