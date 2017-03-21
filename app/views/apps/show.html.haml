@@ -1,5 +1,6 @@
 - content_for :header_title do
   Application: #{@app.name}
+  %span.label{class: app_status_label_class(@app.status)}= @app.status.humanize
 - content_for :header_actions do
 
   = link_to server_apps_path(@server), class: 'btn btn-default' do
@@ -35,7 +36,7 @@
     Edit
 
 
-.box
+.box.app-details
   .box-body
     .row
       .col-md-8

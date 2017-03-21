@@ -6,6 +6,7 @@ class Server < ApplicationRecord
   has_many :plugin_instances
   has_many :ssh_keys
   has_many :server_commands
+  has_many :server_logs
   belongs_to :user
 
   def execute(cmd)

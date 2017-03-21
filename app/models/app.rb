@@ -2,9 +2,10 @@ class App < ApplicationRecord
   include AppCommands
   include SSHKeyGenerator
 
+  enum status: [:creating, :created, :busy]
+
   belongs_to :server
   has_one :user, through: :server
-
   has_many :app_configs, dependent: :destroy
   has_many :plugin_instances, dependent: :destroy
 

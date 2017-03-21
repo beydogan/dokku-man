@@ -26,7 +26,6 @@ group :development do
   gem 'listen', '~> 3.0.5'
 end
 
-gem 'rails_12factor'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap-generators', '~> 3.3.4'
 gem 'simple_form'

@@ -28,43 +28,34 @@ class AppsController < ApplicationController
   end
 
 
-  # GET /apps
-  # GET /apps.json
   def index
     @apps = current_user.apps
   end
 
-  # GET /apps/1
-  # GET /apps/1.json
   def show
   end
 
-  # GET /apps/new
   def new
     @app = App.new
-    @app.app_configs.new
+    @app.app_configs.build
     load_form_data
   end
 
-  # GET /apps/1/edit
   def edit
     @app.app_configs.new
   end
 
-  # POST /apps
-  # POST /apps.json
   def create
     @app = @server.apps.new(app_params)
 
     if @app.save
+      Apps::CreateJob.perform_later(@app.id)
       redirect_to [@server, @app], notice: 'App was successfully created.'
     else
       render :new
     end
   end
 
-  # PATCH/PUT /apps/1
-  # PATCH/PUT /apps/1.json
   def update
     if @app.update(app_params)
       redirect_to [@server, @app], notice: 'App was successfully updated.'
@@ -73,8 +64,6 @@ class AppsController < ApplicationController
     end
   end
 
-  # DELETE /apps/1
-  # DELETE /apps/1.json
   def destroy
     @app.destroy
     respond_to do |format|
@@ -89,7 +78,6 @@ class AppsController < ApplicationController
       @server = current_user.servers.find(params[:server_id])
     end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_app
       @app = App.find(params[:id])
       gon.app_id = @app.id
@@ -99,7 +87,6 @@ class AppsController < ApplicationController
       @servers = current_user.servers
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
       params.require(:app).permit(:name, :url, :git_url, app_configs_attributes: [:id, :name, :value, :_destroy]
       )
