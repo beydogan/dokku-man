@@ -1,4 +1,5 @@
 class ServerCommand < ApplicationRecord
+  include DokkuOutputable
   enum status: [:waiting, :running, :success, :failed]
   belongs_to :server
   has_one :next_command, class_name: "ServerCommand", foreign_key: :next_command_id

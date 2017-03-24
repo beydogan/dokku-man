@@ -63,7 +63,7 @@ class ServersController < ApplicationController
   end
 
   def sync
-    ServerCommandRunnerJob.perform_later(@server.id, "sync!")
+    Servers::SyncJob.perform_later(@server.id)
     render json: {status: :ok}
   end
 

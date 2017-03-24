@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321122027) do
+ActiveRecord::Schema.define(version: 20170324105532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,12 +85,12 @@ ActiveRecord::Schema.define(version: 20170321122027) do
     t.string   "addr"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "plugins",        default: [],              array: true
     t.datetime "last_synced_at"
     t.integer  "user_id"
     t.string   "endpoint"
     t.string   "api_key"
     t.string   "api_secret"
+    t.json     "plugins",        default: {}
     t.index ["user_id"], name: "index_servers_on_user_id", using: :btree
   end
 

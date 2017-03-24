@@ -17,6 +17,16 @@ class DokkuOutputParser
       "regex" => /([\w\:\.-]+)[\s]/,
       "keys" => [:proc_type, :quantity],
       "remove_lines" => 3
+    },
+    "apps" => {
+      "regex" => /(\w+)/,
+      "keys" => [:name],
+      "remove_lines" => 2
+    },
+    "plugin" => {
+        "regex" => / {2}([\d\w]+)\s+(\d\.\d\.\d) enabled +dokku (\w+)/,
+        "keys" => [:name, :version, :type],
+        "remove_lines" => 1
     }
   }
 
@@ -30,12 +40,13 @@ class DokkuOutputParser
   def parse
     result = []
     keys = @options["keys"]
-    matches = @output.scan @options["regex"]
-    matches.each_slice(keys.count) do |line|
+    matches = @output.scan(@options["regex"]).flatten
+    slice = keys.count
+    matches.each_slice(slice) do |line|
       item = {}
       keys.each_with_index do |key, i|
         next if key == :skip
-        item[key] = line[i][0]
+        item[key] = line[i]
       end
       result << item
     end
