@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :plugins
     member do
       get :sync
+      get :logs
     end
     resources :apps do
       member do

@@ -1,6 +1,6 @@
 class PluginInstance < ApplicationRecord
   enum status: [:waiting, :created, :linked]
-  belongs_to :app
+  belongs_to :app, optional: true
   belongs_to :server
 
   validates :name, uniqueness: {scope: [:server_id, :type]}

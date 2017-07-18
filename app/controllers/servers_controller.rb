@@ -1,70 +1,62 @@
 class ServersController < ApplicationController
-  before_action :set_server, only: [:show, :edit, :update, :destroy, :sync]
+  before_action :set_server, only: [:show, :edit, :update, :destroy, :sync, :logs]
 
-  # GET /servers
-  # GET /servers.json
+
+  ##== Member Actions
+  def sync
+    Servers::SyncJob.perform_later(@server.id)
+    Notifier.call(
+        server: @server,
+        action: 'server_sync_enqueued',
+        i18n_vars: {server: @server.name},
+        reload_page: false,
+    )
+    render json: {status: :ok}
+  end
+
+  def logs
+    @server_logs = @server.server_logs
+  end
+
+  ##== Crud Actions
+
   def index
     @servers = current_user.servers
   end
 
-  # GET /servers/1
-  # GET /servers/1.json
   def show
     @plugins = Plugin.all
   end
 
-  # GET /servers/new
   def new
     @server = Server.new
   end
 
-  # GET /servers/1/edit
   def edit
   end
 
-  # POST /servers
-  # POST /servers.json
   def create
     @server = current_user.servers.new(server_params)
 
-    respond_to do |format|
-      if @server.save
-        format.html { redirect_to @server, notice: 'Server was successfully created.' }
-        format.json { render :show, status: :created, location: @server }
-      else
-        format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
-      end
+    if @server.save
+      Servers::SyncJob.perform_later(@server.id)
+      redirect_to @server, notice: 'Server was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /servers/1
-  # PATCH/PUT /servers/1.json
   def update
-    respond_to do |format|
-      if @server.update(server_params)
-        format.html { redirect_to @server, notice: 'Server was successfully updated.' }
-        format.json { render :show, status: :ok, location: @server }
-      else
-        format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
-      end
+    if @server.update(server_params)
+      redirect_to @server, notice: 'Server was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /servers/1
-  # DELETE /servers/1.json
   def destroy
     @server.destroy
-    respond_to do |format|
-      format.html { redirect_to servers_url, notice: 'Server was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  def sync
-    Servers::SyncJob.perform_later(@server.id)
-    render json: {status: :ok}
+    redirect_to servers_url, notice: 'Server was successfully destroyed.'
   end
 
   private

@@ -2,7 +2,7 @@ class App < ApplicationRecord
   include AppCommands
   include SSHKeyGenerator
 
-  enum status: [:creating, :created, :busy, :not_exist]
+  enum status: [:creating, :created, :busy, :not_exist, :not_synced, :syncing, :errored]
 
   belongs_to :server
   has_one :user, through: :server
@@ -19,5 +19,13 @@ class App < ApplicationRecord
 
   def notify_user(message)
     NotificationChannel.broadcast_to "user_#{user.id}", message
+  end
+
+  def just_created?
+    self.previous_changes['id'].present?
+  end
+
+  def to_s
+    self.name
   end
 end

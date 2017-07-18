@@ -14,13 +14,16 @@ class ServerCommand < ApplicationRecord
     self.running!
     begin
       api_result = self.server.api.run("create_command", self.command, self.sync)
-      puts api_result
-      self.result = api_result["result_data"].to_json
       api_result["result_data"]["ok"] ? (self.status = :success) : (self.status = :failed)
+      self.result = api_result["result_data"].to_json
       self.ran_at = DateTime.now
       self.token = api_result["token"]
       self.save!
-    rescue
+      raise Exceptions::CommandError, api_result["result_data"]["output"] if self.failed?
+    rescue Exceptions::CommandError => re #Handle if api returned failed
+      raise re
+    rescue Exception => e
+      Rails.logger.error("[ServerCommand#run] #{e.message}")
       self.failed!
     end
   end

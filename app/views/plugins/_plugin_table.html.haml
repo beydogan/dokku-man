@@ -12,5 +12,5 @@
         %tr
           %td= plugin.name
           %td= plugin.version
-          %td= server.plugins.include?(plugin.slug)
+          %td= server.has_plugin?(plugin.slug).to_s.humanize
           %td= link_to 'Install', server_plugins_path(server_id: @server.id, slug: plugin.slug), method: :post

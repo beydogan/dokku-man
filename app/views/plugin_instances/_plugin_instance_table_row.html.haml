@@ -2,7 +2,7 @@
   %td= instance.name
   %td= instance.type
   %td
-    = instance.status
+    = instance.status.humanize
     - if instance.waiting?
       %i.fa.fa-spinner
   - if server_scope

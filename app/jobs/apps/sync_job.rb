@@ -4,5 +4,7 @@ class Apps::SyncJob < ApplicationJob
   def perform(app_id)
     app = App.find(app_id) rescue return
 
+    app.syncing!
+
   end
 end

@@ -15,7 +15,7 @@
           %td= app.name
           %td= app.url
           %td= app.server
-          %td= app_status_label(app.status)
+          %td= status_label(app.status)
           %td= link_to 'Show', [app.server, app]
           %td= link_to 'Edit', edit_server_app_path(app.server, app)
           %td= link_to 'Destroy', [app.server, app], data: { confirm: 'Are you sure?' }, method: :delete

@@ -21,9 +21,10 @@
 
 en:
   notifier:
-    server_sync_started: "Syncing %{server} has been started"
-    server_sync_completed: "Syncing %{server} has been completed"
-    server_sync_error: "Syncing %{server} has been errored. Check the logs."
-    plugin_install_started: "Plugin installation has been started"
-    plugin_instance_created: "%{type} named %{name} has been created"
-    plugin_instance_linked: "%{type} named %{name} has been to %{app}"
+    server_sync_enqueued: "Syncing %{server} has been enqueued."
+    server_sync_started: "Syncing %{server} has been started."
+    server_sync_completed: "Syncing %{server} has been completed."
+    server_sync_errored: "Syncing %{server} has been errored. Check the logs."
+    plugin_install_started: "Plugin installation has been started."
+    plugin_instance_created: "%{type} named %{name} has been created."
+    plugin_instance_linked: "%{type} named %{name} has been to %{app}."

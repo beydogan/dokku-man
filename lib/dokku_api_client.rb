@@ -1,10 +1,12 @@
 class DokkuAPIClient
   valid_actions = ["list_commands", "create_command", "get_command", "retry_command"].freeze
 
+
   def initialize(endpoint, api_key, api_secret)
     @endpoint = endpoint
     @api_key = api_key
     @api_secret = api_secret
+    strip_endpoint!
   end
 
   def run(command, *args)
@@ -28,6 +30,12 @@ class DokkuAPIClient
   end
 
   private
+
+    def strip_endpoint!
+      uri = URI(@endpoint)
+      uri.path = ''
+      @endpoint = uri.to_s
+    end
 
     def validate_command!(command)
       raise "InvalidAction" unless valid_actions.includes? command

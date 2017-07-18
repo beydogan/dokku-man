@@ -1,0 +1,22 @@
+- content_for :header_title do
+  #{@server.name} Server Logs
+- content_for :header_actions do
+  = link_to server_path(@server), class: 'btn btn-primary m-l-5' do
+    %span.fa.fa-arrow-left
+    Back
+.box
+  .box-body
+    .table-responsive
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th #
+            %th Timestamp
+            %th Details
+
+        %tbody
+          - @server_logs.each do |log|
+            %tr
+              %td= log.id
+              %td= log.timestamp
+              %td= log.details

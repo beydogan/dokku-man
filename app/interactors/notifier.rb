@@ -13,11 +13,13 @@ class Notifier
     content_replace_target = context.content_replace_target
     content_replace_payload = context.content_replace_payload
 
+    type = context.type || "information"
+
     message = I18n.t("notifier.#{action}", i18n_vars)
 
     payload = {
         message: message,
-        type: "information",
+        type: type,
         reload_page: reload_page,
         reload_element_check: reload_element_check,
         content_replace: content_replace.present?,
