@@ -4,7 +4,7 @@ class Servers::SyncJob < ApplicationJob
   rescue_from Exceptions::CommandError do |e|
     Rails.logger.error("[Servers::SyncJob][CommandError] Exception: #{e.message}")
     notify_socket!(:server_sync_errored, true, 'error')
-    @server.log! "SYNC", e.message, 'error'
+    @server.log! "SYNC", e.message, status: 'error'
     @server.error!
   end
 
